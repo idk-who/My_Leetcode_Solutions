@@ -12,27 +12,15 @@ class Solution:
                 hash *= prime_factors[(ord(i) - 97)]
             
             return hash
+        
+        d = {}
 
-        hashes = []
         for i in strs:
-            hashes.append(prime_hash(i))
-        
-        coupled = [(i,j) for i,j in zip(hashes, strs)]
-
-        coupled = sorted(coupled, key=lambda x: x[0])
-
-        answer = []
-
-        temp = [coupled[0]]
-        n = 0 
-        for i in coupled[1:]:
-            if i[0] == temp[0][0]:
-                temp.append(i)
+            key = prime_hash(i)
+            if key in d:
+                d[key].append(i)
             else:
-                answer.append(temp)
-                temp = [i]
-        answer.append(temp)
-        
-        answer = [[j[1] for j in i] for i in answer]
+                d[key] = [i]
 
-        return answer
+        return [i for i in d.values()]
+
