@@ -5,19 +5,14 @@ class Solution:
             t = target-numbers[i]
             left = i + 1
             right = len(numbers) - 1
-            mid = (left + right) // 2 
-            temp = -1
+            mid = (left + right) // 2
+
             while left <= right:
                 if numbers[mid] == t:
-                    temp = mid
-                    break
+                    return i+1, mid+1
                 elif t > numbers[mid]:
                     left = mid + 1
                 else:
                     right = mid - 1
                 mid = (left + right) // 2 
-
-            if temp != -1:
-                return i+1, temp+1
-        return [-1, -1]
 
