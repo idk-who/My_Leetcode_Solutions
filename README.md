@@ -1,2 +1,2 @@
 # My_Leetcode_Solutions
-Collection of LeetCode questions to ace the coding interview! 
+Collection of LeetCode questions and answers solved my me. 
