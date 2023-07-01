@@ -2,8 +2,6 @@ class Solution {
 public:
     vector<vector<int>> traced;
     int latestDayToCross(int row, int col, vector<vector<int>>& cells) {
-        // vector<vector<int>> maze (row, vector<int> (col, 1));
-        // traced = maze;
         int day = 0;
         int low = 0;
         int high = cells.size()-1;    
@@ -18,13 +16,6 @@ public:
             }
             mid = low + ((high - low)/2);
         }
-        // for (auto& i: cells){
-        //     maze[i[0]-1][i[1]-1] = 0;
-        //     traced = maze;
-        //     if (!maizeSolveAll(maze)) break;
-        //     day++;
-        // }
-
         return mid;
     }
 
@@ -58,8 +49,6 @@ public:
         else if (solveMaze(maze, i, j+1)) return true;
         else if (solveMaze(maze, i, j-1)) return true;
         else if (solveMaze(maze, i-1, j)) return true;
-
-        // traced[i][j] = 1; 
 
         return false;
     }
