@@ -3,12 +3,12 @@ class Solution
 public:
     int N;
     vector<vector<string>> answer;
-    vector<vector<bool>> board;
+    vector<string> board;
 
     vector<vector<string>> solveNQueens(int n)
     {
         N = n;
-        board = vector<vector<bool>>(n, vector<bool>(n, false));
+        board = vector<string> (n, string(n,'.'));
         solveNQueensRec();
         return answer;
     }
@@ -16,7 +16,7 @@ public:
     void solveNQueensRec(int col = 0)
     {
         if (col == N){
-            append_answer();
+            answer.push_back(board);
             return;
         }
 
@@ -24,54 +24,31 @@ public:
         {
             if (isSafe(i, col))
             {
-                board[i][col] = 1;
+                board[i][col] = 'Q';
                 solveNQueensRec(col + 1);
-                board[i][col] = 0;
+                board[i][col] = '.';
             }
         }
         return;
-    }
-
-    void append_answer()
-    {
-        answer.push_back({});
-        stringstream ss;
-        for (int i = 0; i < N; i++)
-        {
-            for (int j = 0; j < N; j++)
-            {
-                if (board[i][j])
-                {
-                    ss << 'Q';
-                }
-                else
-                {
-                    ss << '.';
-                }
-            }
-            answer[answer.size()-1].push_back(ss.str());
-            ss=stringstream();
-        }
-        
     }
 
     bool isSafe(int row, int col)
     {
         for (int i = 0; i < col; i++)
         {
-            if (board[row][i])
+            if (board[row][i] == 'Q')
                 return false;
         }
 
         for (int i = row, j = col; i >= 0 && j >= 0; i--, j--)
         {
-            if (board[i][j])
+            if (board[i][j] == 'Q')
                 return false;
         }
 
         for (int i = row, j = col; i < N && j >= 0; i++, j--)
         {
-            if (board[i][j])
+            if (board[i][j] == 'Q')
                 return false;
         }
 
