@@ -15,7 +15,6 @@ public:
     {
         if (counter == cookies.size())
         {
-            int sum = dsitribution[0] + dsitribution[1];
             calculate_unfairness();
             return;
         }
