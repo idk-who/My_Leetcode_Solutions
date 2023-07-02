@@ -8,10 +8,6 @@ public:
     {
         dsitribution = vector<int>(k, 0);
         distributeCookiesRec(cookies, k);
-        // cout << "Final distribution: ";
-        // for (int i : dsitribution)
-        //     cout << i << ' ';
-        // cout << endl;
         return unfairness;
     }
 
@@ -20,19 +16,6 @@ public:
         if (counter == cookies.size())
         {
             int sum = dsitribution[0] + dsitribution[1];
-            // if (sum != 61 && sum != 0)
-            // {
-            //     cout << "Error Distribution: ";
-            //     for (int i : dsitribution)
-            //         cout << i << ' ';
-            //     cout << endl;
-            //     cout << "Cookies: ";
-            //     for (int i : cookies)
-            //         cout << i << ' ';
-            //     cout << endl;
-            //     cout<<"counter: "<<counter<<endl;
-            //     exit(0);
-            // }
             calculate_unfairness();
             return;
         }
@@ -58,10 +41,6 @@ public:
         }
         if (max < unfairness)
         {
-            // cout << "Distribution: ";
-            // for (int i : dsitribution)
-            //     cout << i << ' ';
-            // cout << endl;
             unfairness = max;
         }
     }
