@@ -6,16 +6,16 @@ public:
         if (s.size() != goal.size())
             return false;
 
-        vector<vector<char>> different;
+        vector<vector<char>> diff;
         for (int i = 0; i < s.size(); i++)
         {
             if (s[i] != goal[i])
-                different.push_back({s[i], goal[i]});
+                diff.push_back({s[i], goal[i]});
         }
 
-        if (different.size() == 2 && different[0][0] == different[1][1] && different[0][1] == different[1][0])
+        if (diff.size() == 2 && diff[0][0] == diff[1][1] && diff[0][1] == diff[1][0])
             return true;
-        else if (different.size() == 0)
+        else if (diff.size() == 0)
         {
             vector<int> freq(26, 0);
             for (int i = 0; i < s.size(); i++)
