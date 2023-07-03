@@ -13,8 +13,8 @@ public:
                 diff.push_back({s[i], goal[i]});
         }
 
-        if (diff.size() == 2 && diff[0][0] == diff[1][1] && diff[0][1] == diff[1][0])
-            return true;
+        if (diff.size() == 2)
+            return (diff[0][0] == diff[1][1] && diff[0][1] == diff[1][0]);
         else if (diff.size() == 0)
         {
             vector<int> freq(26, 0);
