@@ -1,6 +1,4 @@
 class Solution:
-    m = 0
-    n = 0
     def searchMatrix(self, matrix, target: int) -> bool:
         low = 0
         m = len(matrix)
