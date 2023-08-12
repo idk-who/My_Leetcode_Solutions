@@ -8,10 +8,7 @@ class Solution:
         j = n -1
         k = m+n-1
 
-        while k>=0:
-            print(k, i, j, nums1)
-            if i<0 or j<0:
-                break
+        while k>=0 and i>=0 and j>=0:
             if nums1[i]>=nums2[j]:
                 nums1[k] = nums1[i]
                 i -= 1
