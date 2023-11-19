@@ -3,8 +3,8 @@ class Solution:
         i = 0
         j = 0
         limit = 2
-        if len(nums)<3:
-            return len(nums)
+        # if len(nums)<3:
+        #     return len(nums)
             
         while j<len(nums):
             """
