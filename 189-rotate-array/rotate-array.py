@@ -5,15 +5,17 @@ class Solution:
         """
         
         n = len(nums)
-        k = k % n #optimization based on facts
+        k = k % n #optimization based on fact -> n times rotation == NO rotation
 
         # reversing the first part of array 
         for i in range((n-k)//2):
             nums[i], nums[n-k-1-i] = nums[n-k-1-i], nums[i]
 
+        # reversing the second part of array
         for i in range(k//2):
             nums[n-k+i], nums[n-1-i] = nums[n-1-i], nums[n-k+i]
 
+        # reversing the entire array
         for i in range(n//2):
             nums[i], nums[n-1-i] = nums[n-1-i], nums[i]
 
