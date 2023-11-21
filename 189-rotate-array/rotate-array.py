@@ -3,11 +3,13 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
+
         queue = []
         n = len(nums)
-        start = n - k
+        k = k % n
+        
         for i in range(k):
-            queue.append(nums[(i+start)%n])
+            queue.append(nums[(i + n - k)])
         
         for i in range(n):
             queue.append(nums[i])
