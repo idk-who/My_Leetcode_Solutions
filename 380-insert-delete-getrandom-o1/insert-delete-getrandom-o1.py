@@ -14,14 +14,13 @@ class RandomizedSet:
     def remove(self, val: int) -> bool:
         ind = self.dic.get(val, -1)
         if ind>-1:
-            if ind < len(self.data)-1:
-                del self.dic[val]
-                temp = self.data.pop()
-                self.data[ind] = temp
-                self.dic[temp] = ind
-            else:
-                del self.dic[val]
-                self.data.pop()
+            
+            temp = self.data[-1]
+            self.data[ind] = temp
+            self.dic[temp] = ind
+
+            del self.dic[val]
+            self.data.pop()
             return True
         return False
 
