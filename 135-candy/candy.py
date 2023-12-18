@@ -9,9 +9,7 @@ class Solution:
             else:
                 dic[ratings[i]] = [i]
 
-        # print(dic)
         for r, inds in sorted(dic.items()):
-            # print(r, inds)
             temp = candies[:]
             for i in inds:
                 if i==0:
