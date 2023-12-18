@@ -1,11 +1,5 @@
 class Solution:
     def candy(self, ratings: List[int]) -> int:
-        """
-         0 = greater than no one
-         -1 = greater than left
-         -2 = greater than right 
-         -3 = greater than left and right 
-        """
         candies = [1]*len(ratings)
 
         for i in range(1, len(ratings)):
