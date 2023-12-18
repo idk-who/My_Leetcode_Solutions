@@ -17,14 +17,12 @@ class Solution:
         for i in range(len(ratings)):
             if diff[i] == 0:
                 candies[i]=1
-        for i in range(len(ratings)):
-            if diff[i] == 1:
+            elif diff[i] == 1:
                 candies[i] = candies[i-1]+1
         for i in range(len(ratings)-1, -1, -1):
             if diff[i] == 2:
                 candies[i] = candies[i+1]+1
-        for i in range(len(ratings)):
-            if diff[i] == 3:
+            elif diff[i] == 3:
                 candies[i] = max(candies[i-1], candies[i+1]) + 1
             
         return sum(candies)
