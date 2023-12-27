@@ -10,13 +10,10 @@ class Solution:
             'M':1000
         }
 
-        l = list(s[::-1])
-        l = list(map(lambda x: dic[x], l))
-
-        ans = l[0]
-        for i in range(1,len(l)):
-            if l[i]>=l[i-1]:
-                ans+=l[i]
+        ans = dic[s[len(s)-1]]
+        for i in range(0,len(s)-1):
+            if dic[s[i]]>=dic[s[i+1]]:
+                ans+=dic[s[i]]
             else:
-                ans-=l[i]
+                ans-=dic[s[i]]
         return ans
