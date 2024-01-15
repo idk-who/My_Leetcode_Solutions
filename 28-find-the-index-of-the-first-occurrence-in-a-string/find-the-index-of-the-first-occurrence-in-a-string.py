@@ -10,5 +10,4 @@ class Solution:
                 k += 1
             if j == i+n:
                 return i
-        
         return -1
