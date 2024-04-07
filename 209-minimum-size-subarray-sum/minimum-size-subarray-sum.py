@@ -9,7 +9,6 @@ class Solution:
         s = 0   # sum variable (collector)
 
         while h<n:
-            print(l, h, s, m)
             while h < n and s < target:
                 s += nums[h]
                 h += 1
