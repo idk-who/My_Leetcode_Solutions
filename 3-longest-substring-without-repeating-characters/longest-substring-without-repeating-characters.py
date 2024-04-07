@@ -1,6 +1,6 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        d = defaultdict(int)
+        d = [0]*95
         
         l = 0
         m = 0
