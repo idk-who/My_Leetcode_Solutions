@@ -9,9 +9,8 @@ class Solution:
         s = 0   # sum variable (collector)
 
         while h<n:
-            while h < n and s < target:
-                s += nums[h]
-                h += 1
+            s += nums[h]
+            h += 1
 
             while s >= target:
                 if h-l<m: m = h-l
