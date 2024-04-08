@@ -1,19 +1,15 @@
 class Solution:
     def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
-        one = 0
-        zero = 0
-        for i in students:
-            if i == 0: zero += 1
-            else: one += 1
+        c = Counter(students)
 
         for i in sandwiches:
             if i == 0:
-                if zero < 1:
+                if c[0] < 1:
                     break
-                zero -= 1
+                c[0] -= 1
             else:
-                if one < 1:
+                if c[1] < 1:
                     break
-                one -= 1
+                c[1] -= 1
         
-        return one + zero
+        return c[0] + c[1]
