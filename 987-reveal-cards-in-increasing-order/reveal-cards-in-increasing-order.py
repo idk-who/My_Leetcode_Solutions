@@ -6,8 +6,7 @@ class Solution:
 
         ans = deque()
         for i in deck:
-            if len(ans) > 1:
-                ans.append(ans.popleft())
-            ans.append(i)
+            ans.rotate()
+            ans.appendleft(i)
         
-        return list(ans)[::-1]
+        return list(ans)
