@@ -7,16 +7,17 @@ class Solution:
                 stack.pop()
                 k -= 1
             stack.append(i) 
-        if k > 0: stack = stack[:-k]
+
+        while k > 0 and len(stack)>0: 
+            stack.pop()
+            k -= 1
+
+        start = 0
+        while start<len(stack) and stack[start]=='0': start += 1
+        stack = stack[start:]
+
+        if len(stack) == 0: stack.append('0')
         
-        temp = True
-        ans = []
-        for i in stack:
-            if temp and i == '0':
-                continue
-            temp = False
-            ans.append(i)
+        ans = "".join(stack)
 
-        if len(ans) == 0: ans.append('0')
-
-        return "".join(ans)
+        return ans
