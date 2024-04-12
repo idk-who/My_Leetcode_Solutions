@@ -6,15 +6,11 @@ class Solution:
         for i in range(n):
             if height[i]>m: m = height[i]
             max_l[i] = m
-
-        max_r = [0]*n
+        
+        ans = 0
         m = -1
         for i in range(n-1, -1, -1):
             if height[i]>m: m = height[i]
-            max_r[i] = m
-        
-        ans = 0
-        for i in range(n):
-            ans += min(max_l[i], max_r[i]) - height[i]
+            ans += min(max_l[i], m) - height[i]
 
         return ans
