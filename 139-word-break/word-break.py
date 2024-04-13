@@ -18,6 +18,4 @@ class Solution:
                     temp.append(self.helper(i))
             print(temp)
             self.dp[ptr] = any(temp)
-        return self.dp[ptr]
-
-                    
+        return self.dp[ptr]                    
