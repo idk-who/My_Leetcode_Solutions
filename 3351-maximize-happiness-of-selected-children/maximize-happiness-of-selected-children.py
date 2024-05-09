@@ -4,7 +4,9 @@ class Solution:
         ans = 0
         ptr = 0
         while ptr<k:
-            ans += max(happiness[ptr]-ptr, 0)
+            temp = happiness[ptr]-ptr
+            if temp <= 0: break 
+            ans += temp
             ptr += 1
         
         return ans
