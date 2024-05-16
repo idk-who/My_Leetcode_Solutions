@@ -10,10 +10,8 @@ class Solution:
             else:
                 for i in range(m):
                     sum_cols[i] += 0 if row[i] else 1                 
-                    
+
         ans = 0
-        tows = 1
         for i in range(m):
-            ans += tows*sum_cols[m-i-1] if sum_cols[m-i-1]>n/2 else tows*(n - sum_cols[m-i-1])
-            tows *= 2
+            ans += max(sum_cols[i], n - sum_cols[i]) * (1 << m - 1 - i)
         return ans
