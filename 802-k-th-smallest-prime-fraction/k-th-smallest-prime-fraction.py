@@ -15,11 +15,11 @@ class Solution:
             for i in range(n):
                 while j<n and arr[i] >= arr[j] * mid:
                     j += 1
-                # if j == n: break
+                if j == n: break
                 
                 total += n - j 
 
-                if j<n and maxFrac < arr[i] / arr[j]:
+                if maxFrac < arr[i] / arr[j]:
                     maxFrac = arr[i] / arr[j]
                     num, den = i, j
             
