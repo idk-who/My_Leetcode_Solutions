@@ -1,12 +1,27 @@
+from heapq import heapify, heappush, heappop
+
 class Solution:
-    def mincostToHireWorkers(self, quality, wage, K):
-        workers = sorted([float(w) / q, q] for w, q in zip(wage, quality))
-        res = float('inf')
-        qsum = 0
-        heap = []
-        for r, q in workers:
-            heapq.heappush(heap, -q)
-            qsum += q
-            if len(heap) > K: qsum += heapq.heappop(heap)
-            if len(heap) == K: res = min(res, qsum * r)
-        return res
+    def mincostToHireWorkers(self, quality: List[int], wage: List[int], k: int) -> float:
+        n = len(wage)
+        
+        ratio = []
+        for i in range(n):
+            ratio.append((quality[i]/wage[i], quality[i]))
+        ratio.sort(reverse=True)
+
+        h = []
+        heapify(h)
+        total_quality = 0
+        max_ratio = 0 
+        min_cost = float("inf")
+
+        for i in range(n):
+            max_ratio = ratio[i][0]
+            total_quality += ratio[i][1]
+            heappush(h, -ratio[i][1])
+
+            if len(h) == k:
+                min_cost = min(min_cost, total_quality/max_ratio)
+                total_quality += heappop(h)
+        
+        return min_cost
