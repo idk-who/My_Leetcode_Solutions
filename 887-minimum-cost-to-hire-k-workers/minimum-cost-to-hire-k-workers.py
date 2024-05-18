@@ -6,8 +6,8 @@ class Solution:
         
         ratio = []
         for i in range(n):
-            ratio.append((quality[i]/wage[i], quality[i]))
-        ratio.sort(reverse=True)
+            ratio.append((wage[i]/quality[i], quality[i]))
+        ratio.sort()
 
         h = []
         heapify(h)
@@ -21,7 +21,7 @@ class Solution:
             heappush(h, -ratio[i][1])
 
             if len(h) == k:
-                min_cost = min(min_cost, total_quality/max_ratio)
+                min_cost = min(min_cost, total_quality*max_ratio)
                 total_quality += heappop(h)
         
         return min_cost
