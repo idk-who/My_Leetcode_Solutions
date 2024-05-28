@@ -1,9 +1,5 @@
 class Solution:
-    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
-        
-        def calcCost(a, b):
-            return 
-        
+    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:   
         costs = []
 
         for i in range(len(s)):
