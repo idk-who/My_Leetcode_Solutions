@@ -1,14 +1,19 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> List[int]:
-        d = defaultdict(int)
+        xor = 0
 
         for i in nums:
-            d[i] += 1
+            xor ^= i
         
-        ans = []
+        diff = xor & -xor
 
-        for i in d:
-            if d[i] == 1:
-                ans.append(i)
+        dig1 = 0
+        dig2 = 0
 
-        return ans
+        for i in nums:
+            if i & diff:
+                dig1 ^= i
+            else:
+                dig2 ^= i
+        
+        return [dig1, dig2]
