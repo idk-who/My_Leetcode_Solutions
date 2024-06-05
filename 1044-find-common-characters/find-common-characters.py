@@ -3,7 +3,7 @@ class Solution:
         ans = []
         chars = set(words[0])
         for char in chars:
-            count = float("inf")
+            count = len(words[0])
             for word in words:
                 cnt = 0
                 for c in word:
