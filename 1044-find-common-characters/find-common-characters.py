@@ -1,18 +1,18 @@
 class Solution:
     def commonChars(self, words: List[str]) -> List[str]:
-        freq = [len(words[0])]*26
+        """ 
+        不可能把每个word都建一个hash map。
+        这题关键在于，result中其实只要确定char的最小次数
 
-        for word in words:
-            new_freq = [0]*26
-            for w in word:
-                new_freq[ord(w)-ord('a')] += 1
-            
-            for i in range(26):
-                freq[i] = min(freq[i], new_freq[i])
+        """
+        if len(words) == 1:
+            return words[0]
 
-        ans = []
-        for i in range(26):
-            for _ in range(freq[i]):
-                ans.append(chr(i+97))
+        result = []
+        chars = set(words[0])
         
-        return ans
+        for char in chars:
+            frequency = min([word.count(char) for word in words])
+            result += frequency * [char]
+
+        return result
