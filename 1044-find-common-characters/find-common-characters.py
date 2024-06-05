@@ -3,12 +3,7 @@ class Solution:
         ans = []
         chars = set(words[0])
         for char in chars:
-            count = len(words[0])
-            for word in words:
-                cnt = 0
-                for c in word:
-                    if c == char: cnt += 1
-                count = min(count, cnt)
+            count = min([word.count(char) for word in words])
             ans += [char] * count
 
         return ans
