@@ -1,35 +1,28 @@
-class UnionFind:
+class UnionFind(object):
     def __init__(self, n):
-        self.count = n
-        self.parents = [i for i in range(n)]
-        self.size = [1 for i in range(n)]
-
-    def find(self, n):
-        while self.parents[n] != n: 
-            self.parents[n] = self.parents[self.parents[n]]
-            n = self.parents[n]
-        return n
-    
-    def union(self, a, b):
-        pa, pb = self.find(a), self.find(b)
-        if pa == pb: return
-        if self.size[pa] > self.size[pb]:
-            self.parents[pb] = pa
-            self.size[pa] += self.size[pb]
-        else:
-            self.parents[pa] = pb
-            self.size[pb] += self.size[pa]
-        self.count -= 1
-
-class Solution:
-    def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        n = len(isConnected)
+        self.u = list(range(n))
         
-        uf = UnionFind(n)
-
-        for i in range(n):
-            for j in range(n):
-                if isConnected[i][j]:
-                    uf.union(i, j)
-
-        return uf.count
+    def union(self, a, b):
+        ra, rb = self.find(a), self.find(b)
+        if ra != rb: self.u[ra] = rb
+    
+    def find(self, a):
+        while self.u[a] != a: a = self.u[a]
+        return a
+    
+class Solution(object):
+    def findCircleNum(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: int
+        """
+        
+        if not M: return 0
+        s = len(M)
+        
+        uf = UnionFind(s)
+        for r in range(s):
+            for c in range(r,s):
+                if M[r][c] == 1: uf.union(r,c)
+                    
+        return len(set([uf.find(i) for i in range(s)]))
