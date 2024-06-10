@@ -17,16 +17,14 @@ class Solution:
         ]
         digits = list(map(int, list(digits)))
         # print(digits)
-        self.helper(digits, 0, [])
+        self.helper(digits, 0, "")
         return self.ans
 
     def helper(self, digits, ptr, carrier):
         if ptr == len(digits):
-            self.ans.append("".join(carrier))
+            self.ans.append(carrier)
             return
         
         # print(ptr, digits)
         for c in self.map[digits[ptr]]:
-            carrier.append(c)
-            self.helper(digits, ptr+1, carrier)
-            carrier.pop()
+            self.helper(digits, ptr+1, carrier+c)
