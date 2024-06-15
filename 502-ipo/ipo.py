@@ -10,20 +10,20 @@ class Solution:
         #     cd[i].sort()
 
         cp = []
-        for c, p in zip(capital, profits):
-            heappush(cp, (c, p))
-
         h = []
-        while k and w >= 0:
+        for c, p in zip(capital, profits):
+            if c > w:
+                heappush(cp, (c, p))
+            else:
+                heappush(h, (-p, c)) 
+
+        while k and h:
+            p, c = heappop(h)
+            w -= p
+            
             while len(cp) > 0 and cp[0][0] <= w:
                 c, p = heappop(cp)
                 heappush(h, (-p, c))
-            
-            if len(h) == 0:
-                break
-
-            p, c = heappop(h)
-            w -= p
 
             k -= 1
         
