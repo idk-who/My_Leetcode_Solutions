@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/sum-of-square-numbers/solutions/5324398/beats-100-explained-with-video-c-java-python-js-maths-interview-solution/
+
 class Solution(object):
     def judgeSquareSum(self, c):
         divisor = 2
