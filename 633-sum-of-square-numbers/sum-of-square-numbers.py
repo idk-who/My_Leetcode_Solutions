@@ -1,30 +1,13 @@
-class Solution:
-    def judgeSquareSum(self, c: int) -> bool:
-        x = int(c**(1/2))
-
-        if x * x == c:
-            return True
-
-        i, j = 0, x
-
-        # two pointer
-        while i <= j:
-            find = c - (j * j)
-
-            # Binary search
-            l, h = i, j
-            while l <= h:
-                mid = l + (h - l) // 2
-                if mid * mid == find:
-                    return True
-                if mid * mid < find:
-                    l = mid + 1
-                else:
-                    h = mid - 1
-
-            if (i * i) + (j * j) > c:
-                j -= 1
-            else:
-                i += 1
-
-        return False
+class Solution(object):
+    def judgeSquareSum(self, c):
+        divisor = 2
+        while divisor * divisor <= c:
+            if c % divisor == 0:
+                exponentCount = 0
+                while c % divisor == 0:
+                    exponentCount += 1
+                    c //= divisor
+                if divisor % 4 == 3 and exponentCount % 2 != 0:
+                    return False
+            divisor += 1
+        return c % 4 != 3
