@@ -1,19 +1,32 @@
+import math
+
 class Solution:
     def judgeSquareSum(self, c: int) -> bool:
-        for i in range(int(sqrt(c)) + 1):
-            if self.hasIntegerRoot(c - i ** 2):
-                return True
-        return False
+        x = int(math.sqrt(c))
 
-    def hasIntegerRoot(self, n):
-        low, high = 0, int(sqrt(n)) + 1
-        while low <= high:
-            mid = low + (high - low) // 2
-            if mid ** 2 == n:
-                return True
-            elif mid ** 2 > n:
-                high = mid - 1
+        if x * x == c:
+            return True
+
+        i, j = 0, x
+
+        # two pointer
+        while i <= j:
+            find = c - (j * j)
+
+            # Binary search
+            l, h = i, j
+            while l <= h:
+                mid = l + (h - l) // 2
+                if mid * mid == find:
+                    return True
+                if mid * mid < find:
+                    l = mid + 1
+                else:
+                    h = mid - 1
+
+            if (i * i) + (j * j) > c:
+                j -= 1
             else:
-                low = mid + 1
+                i += 1
 
         return False
