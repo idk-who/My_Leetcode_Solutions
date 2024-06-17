@@ -1,8 +1,6 @@
-import math
-
 class Solution:
     def judgeSquareSum(self, c: int) -> bool:
-        x = int(math.sqrt(c))
+        x = int(c**(1/2))
 
         if x * x == c:
             return True
