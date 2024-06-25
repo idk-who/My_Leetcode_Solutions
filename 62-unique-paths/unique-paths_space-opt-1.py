@@ -1,6 +1,6 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
-        # if m > n: m, n = n, m
+        if m > n: m, n = n, m
 
         dp = [1]*m
 
