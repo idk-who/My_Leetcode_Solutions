@@ -1,27 +1,9 @@
-class Solution(object):
-    def subsets(self, nums):
-        ret = []
-        self.dfs(nums, [], ret)
-        return ret
-    
-    def dfs(self, nums, path, ret):
-        ret.append(path)
-        for i in range(len(nums)):
-            self.dfs(nums[i+1:], path+[nums[i]], ret)
-       
-    def subsets2(self, nums):
-        res = []
-        nums.sort()
-        for i in xrange(1<<len(nums)):
-            tmp = []
-            for j in xrange(len(nums)):
-                if i & 1 << j:
-                    tmp.append(nums[j])
-            res.append(tmp)
-        return res
-		
-    def subsets(self, nums):
-        res = [[]]
-        for num in sorted(nums):
-            res += [item+[num] for item in res]
-        return res
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        ans = []
+        def dfs(nums, ptr, save):
+            ans.append(save)
+            for i in range(ptr, len(nums)):
+                dfs(nums, i+1, save+[nums[i]])
+        dfs(nums, 0, [])
+        return ans
