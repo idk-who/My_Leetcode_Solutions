@@ -1,20 +1,10 @@
 class Solution:
-    def canPartition(self, nums: List[int]) -> bool:
-        su = sum(nums)
-
-        if su & 1:
-            return False
-        else:
-            k = su // 2
-            n = len(nums)
-            dp = [False]*(k+1)
-            dp[0] = True
-            if nums[0] <= k:
-                dp[nums[0]] =  True
-            new_dp = [False]*(k+1)
-
-            for i in range(1, n):
-                for t in range(k+1):
-                    new_dp[t] = dp[t] or (dp[t-nums[i]] if nums[i] <= t else False)
-                dp[:] = new_dp
-            return dp[-1]
+    def canPartition(self, nums):
+        total_sum = sum(nums)
+        if total_sum & 1: return False
+        half_sum = total_sum // 2
+        dp = [True] + [False]*half_sum
+        for num in nums:
+            for j in range(half_sum, num-1, -1):
+                dp[j] |= dp[j-num]
+        return dp[half_sum]
