@@ -1,8 +1,10 @@
 class Solution:
-    def canPartition(self, nums):
-        total_sum = sum(nums)
-        if total_sum & 1: return False
-        half_sum, dp = total_sum // 2, 1
+    def canPartition(self, nums: List[int]) -> bool:
+        su = sum(nums)
+
+        if su & 1: return False
+        k = su // 2
+        dp = 1
         for num in nums:
             dp |= dp << num
-        return dp & 1 << half_sum
+        return dp & (1<<k)
