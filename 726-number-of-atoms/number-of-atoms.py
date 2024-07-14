@@ -2,12 +2,8 @@ class Solution:
     def countOfAtoms(self, formula: str) -> str:
         asdf = 0 
         def helper(formula, ptr, n) -> dict:
-            # nonlocal asdf
             d = defaultdict(int)
             while ptr < n:
-                # print(ptr, n)
-                # if asdf > 30: exit()
-                # asdf += 1
                 if formula[ptr].isupper():
                     name = formula[ptr]
                     ptr += 1
@@ -22,13 +18,13 @@ class Solution:
                     d[name] += count
                 elif formula[ptr] == '(':
                     nptr = ptr + 1
-                    s = ["("]
+                    ns = 1
                     ptr += 1
-                    while len(s) != 0:
+                    while ns != 0:
                         if formula[ptr] == '(':
-                            s.append('(')
+                            ns += 1
                         elif formula[ptr] == ')':
-                            s.pop()
+                            ns -= 1
                         ptr += 1
                     nn = ptr - 1 
 
