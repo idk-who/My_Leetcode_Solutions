@@ -1,6 +1,5 @@
 class Solution:
     def countOfAtoms(self, formula: str) -> str:
-        asdf = 0 
         def helper(formula, ptr, n) -> dict:
             d = defaultdict(int)
             while ptr < n:
@@ -40,7 +39,6 @@ class Solution:
                     
                     for k in newd:
                         d[k] += newd[k]
-            # print(d)
             return d
 
         atoms = sorted([k, str(v) if v != 1 else ''] for k, v in helper(formula, 0, len(formula)).items())
