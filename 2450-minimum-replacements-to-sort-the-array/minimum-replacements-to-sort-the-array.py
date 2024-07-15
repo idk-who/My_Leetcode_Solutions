@@ -3,7 +3,7 @@ class Solution:
         operations = 0
         mi = float("inf")
         for i in range(len(arr)-1, -1, -1):
-            print(mi)
+            # print(mi)
             if arr[i] < mi:
                 mi = arr[i]
             elif arr[i] > mi:
