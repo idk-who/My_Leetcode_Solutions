@@ -16,24 +16,21 @@ class Solution:
             root.right = helper(root.right, to_del, roots)
             
             if root.val in to_del:
-                if root.left:
-                    roots.append(root.left)
-                if root.right:
-                    roots.append(root.right)
+                roots.append(root)
                 return None
 
             return root
         
         helper(root, to_del, deleted_nodes)
         
-        # ans = []
-        # for node in deleted_nodes:
-        #     if node.left:
-        #         ans.append(node.left)
-        #     if node.right:
-        #         ans.append(node.right)
+        ans = []
+        for node in deleted_nodes:
+            if node.left:
+                ans.append(node.left)
+            if node.right:
+                ans.append(node.right)
 
         if root.val not in to_del:
-            deleted_nodes.append(root)
+            ans.append(root)
         
-        return deleted_nodes
+        return ans
