@@ -1,31 +1,34 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        adj = [[] for _ in range(numCourses)]
-        for u, v in prerequisites:
-            adj[v].append(u)
 
-        visited = [False]*numCourses
-        pathvis = [False]*numCourses
+        def BFS_topo(n, edges):
+            adj = [[] for _ in range(n)]
+            indegree = [0]*n
 
-        def DFS(adj, node, vis, pvis):
-            vis[node] = True
-            pvis[node] = True
+            for u, v in prerequisites:
+                adj[v].append(u)
+                indegree[u] += 1
+            
+            cnt = 0
 
-            for v in adj[node]:
-                if not vis[v]:
-                    if DFS(adj, v, vis, pvis):
-                        return True
-                elif pvis[v]:
-                    return True
-                
-            pvis[node] = False
-            return False
+            q = deque()
+            for i in range(n):
+                if indegree[i] == 0:
+                    cnt += 1
+                    q.append(i)
+            
+            while q:
+                u = q.popleft()
 
-        for i in range(numCourses):
-            if not visited[i]:
-                if DFS(adj, i, visited, pathvis):
-                    return False
-        return True
+                for v in adj[u]:
+                    indegree[v] -= 1
+                    if indegree[v] == 0:
+                        cnt += 1
+                        q.append(v)
+            
+            return cnt == n
+
+        return BFS_topo(numCourses, prerequisites)
 
         
 
