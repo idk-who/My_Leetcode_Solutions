@@ -14,16 +14,15 @@ class Solution:
             q = deque()
             for i in range(n):
                 if indegree[i] == 0:
-                    cnt += 1
                     q.append(i)
             
             while q:
                 u = q.popleft()
+                cnt += 1
 
                 for v in adj[u]:
                     indegree[v] -= 1
                     if indegree[v] == 0:
-                        cnt += 1
                         q.append(v)
             
             return cnt == n
