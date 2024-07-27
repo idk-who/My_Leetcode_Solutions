@@ -14,11 +14,12 @@ class Solution:
 
         for k in range(26):
             for u in range(26):
-                for v in range(26):
-                    adj[u][v] = min(
-                        adj[u][v],
-                        adj[u][k] + adj[k][v]
-                    )
+                if adj[u][k] != float("inf"):
+                    for v in range(26):
+                        adj[u][v] = min(
+                            adj[u][v],
+                            adj[u][k] + adj[k][v]
+                        )
 
         for u in range(26):
             for v in range(26):
