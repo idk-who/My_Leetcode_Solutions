@@ -1,7 +1,6 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         adj = [[] for _ in range(numCourses)]
-
         for u, v in prerequisites:
             adj[v].append(u)
 
@@ -27,4 +26,6 @@ class Solution:
                 if DFS(adj, i, visited, pathvis):
                     return False
         return True
+
+        
 
