@@ -20,9 +20,14 @@ class Solution:
                             adj[u][k] + adj[k][v]
                         )
 
+        for u in range(26):
+            for v in range(26):
+                if adj[u][v] == float("inf"):
+                    adj[u][v] = -1
+
         total_cost = 0
 
         for s, t in zip(source, target):
-            if adj[ord(s)-off][ord(t)-off] == float("inf"): return -1
+            if adj[ord(s)-off][ord(t)-off] == -1: return -1
             total_cost += adj[ord(s)-off][ord(t)-off]
         return total_cost
