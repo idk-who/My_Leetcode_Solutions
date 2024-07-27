@@ -23,7 +23,8 @@ class Solution:
             return False
 
         for i in range(numCourses):
-            if DFS(adj, i, visited, pathvis):
-                return False
+            if not visited[i]:
+                if DFS(adj, i, visited, pathvis):
+                    return False
         return True
 
