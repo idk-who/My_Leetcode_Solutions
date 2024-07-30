@@ -14,21 +14,24 @@ class FT:
 
 class Solution:
     def numTeams(self, rating: List[int]) -> int:
-        # fenwick tree without mask
-        ma = max(rating)
-        lft = FT(ma+1)
-        rft = FT(ma+1)
+        n = len(rating)
+        lft = FT(n)
+        rft = FT(n)
 
-        for r in rating: rft.update(r, 1)
+        temp = sorted([(r, i) for i, r in enumerate(rating)])
+        ind_map = [0]*n
+        for i, (_, ind) in enumerate(temp): ind_map[ind] = i
+
+        for r in ind_map: rft.update(r, 1)
         
         cnt = 0
-        for r in rating:
+        for r in ind_map:
             rft.update(r, -1)
 
             ll = lft.query(r)
-            lg = lft.query(ma+1)-lft.query(r+1)
+            lg = lft.query(n)-lft.query(r+1)
             rl = rft.query(r)
-            rg = rft.query(ma+1)-rft.query(r+1)
+            rg = rft.query(n)-rft.query(r+1)
 
             cnt += (ll*rg)+(lg*rl)
 
