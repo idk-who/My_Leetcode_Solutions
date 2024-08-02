@@ -3,13 +3,9 @@ class Solution:
         visited = [0]*len(graph)
         def DFS(graph, visited, node, color):
             if visited[node] != 0:
-                if visited[node] == color:
-                    return True
-                else:
-                    return False
-            
-            visited[node] = color
+                return visited[node] == color
 
+            visited[node] = color
             for v in graph[node]:
                 if DFS(graph, visited, v, -color) == False:
                     return False
