@@ -4,7 +4,11 @@ class Solution:
         imin = nums[0]
         r = nums[0]
 
-        for i in nums[1:]:
+        s1 = False
+        for i in nums:
+            if not s1:
+                s1 = True
+                continue
             candidates = (i, imax*i, imin*i)
 
             imax = max(candidates)
