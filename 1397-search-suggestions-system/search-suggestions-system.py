@@ -8,7 +8,9 @@ class Solution:
 
             while l < r:
                 m = l + (r-l)//2
-                if word <= products[m]:
+                if products[m] == word:
+                    return m
+                elif word < products[m]:
                     r = m
                 else:
                     l = m + 1
