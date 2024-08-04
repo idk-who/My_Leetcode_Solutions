@@ -10,7 +10,7 @@ class Solution:
             else:
                 evens, odds = evens + 1, odds
             
-            cnt = (cnt + odds) % (10**9 + 7)
+            cnt += odds
         
-        return cnt
+        return cnt % (10**9 + 7)
 
