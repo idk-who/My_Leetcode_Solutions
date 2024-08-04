@@ -8,9 +8,9 @@ class Solution:
             if i & 1:
                 evens, odds = odds, evens + 1
             else:
-                evens, odds = evens + 1, odds
+                evens = evens + 1
             
-            cnt += odds
+            cnt = (cnt + odds) % (10**9 + 7)
         
-        return cnt % (10**9 + 7)
+        return cnt
 
