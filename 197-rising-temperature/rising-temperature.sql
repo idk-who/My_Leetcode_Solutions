@@ -1,12 +1,12 @@
 SELECT 
-    outer_query.id 
+    id 
 FROM 
     Weather outer_query
 WHERE 
-    outer_query.temperature > (
+    temperature > (
         SELECT 
             inner_query.temperature 
         FROM 
             Weather inner_query 
-        WHERE DATEDIFF(inner_query.recordDate, outer_query.recordDate) = -1  
+        WHERE inner_query.recordDate = DATE_ADD(outer_query.recordDate, INTERVAL -1 DAY)    
     );
