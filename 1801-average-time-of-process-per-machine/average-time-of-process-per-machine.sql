@@ -6,7 +6,7 @@ SELECT
                 WHEN activity_type = 'end' THEN timestamp
                 WHEN activity_type = 'start' THEN -timestamp
             END
-        )/(COUNT(*)/2),
+        )/(COUNT(DISTINCT(process_id))),
         3
     )
      as processing_time
