@@ -1,12 +1,11 @@
 SELECT
     P.product_id, 
-    ROUND(
-        IF(
-            SUM(U.units) != 0, 
-            SUM(U.units * P.price)/SUM(U.units), 
-            0
+    IFNULL(
+        ROUND(
+            SUM(U.units * P.price)/SUM(U.units),
+            2
         ),
-        2
+        0
     ) average_price
 FROM
     Prices P
