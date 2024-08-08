@@ -9,3 +9,5 @@ FROM
     Transactions
 GROUP BY
     DATE_FORMAT(trans_date, '%Y-%m'), country;
+
+    
