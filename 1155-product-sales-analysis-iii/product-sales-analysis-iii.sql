@@ -1,16 +1,12 @@
 SELECT
-    P.product_id,
-    S.year first_year,
-    S.quantity,
-    S.price
+    product_id,
+    year first_year,
+    quantity,
+    price
 FROM
-    Product P
-JOIN
     Sales S
-ON
-    P.product_id = S.product_id
 WHERE
-    (P.product_id, year)
+    (product_id, year)
 IN
     (
         SELECT
