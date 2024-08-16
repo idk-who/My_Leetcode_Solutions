@@ -1,4 +1,3 @@
-from heapq import heappush, heappop
 class Solution:
     def maxDistance(self, arrays: List[List[int]]) -> int:
         mi = float("inf")
