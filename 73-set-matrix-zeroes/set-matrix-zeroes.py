@@ -15,8 +15,7 @@ class Solution:
         
 
         for i in range(n):
-            for j in range(
-                m):
+            for j in range(m):
                 if rows[i] or cols[j]:
                     grid[i][j] = 0
 
