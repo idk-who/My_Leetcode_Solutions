@@ -13,8 +13,11 @@ class Solution:
         dist = [0]*n
         dist[start_node] = 1
         h = [(-1, start_node)]
+
         while h:
             p, u = heappop(h)
+
+            if u == end_node: return -p
 
             for v, np in adj[u]:
                 if dist[v] < -p*np:
