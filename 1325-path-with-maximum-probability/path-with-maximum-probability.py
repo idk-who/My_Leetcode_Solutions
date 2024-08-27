@@ -10,17 +10,15 @@ class Solution:
             adj[u].append((v, wt))
             adj[v].append((u, wt))
 
-        dist = [float("-inf")]*n
+        dist = [0]*n
         dist[start_node] = 1
-        h = [(start_node, 1)]
-        # print(adj)
+        h = [(-1, start_node)]
         while h:
-            # print(h)
-            u, p = heappop(h)
+            p, u = heappop(h)
 
             for v, np in adj[u]:
-                if dist[v] < p*np:
-                    dist[v] = p*np
-                    heappush(h, (v, p*np))
+                if dist[v] < -p*np:
+                    dist[v] = -p*np
+                    heappush(h, (p*np, v))
                 
-        return dist[end_node] if dist[end_node] != float("-inf") else 0
+        return dist[end_node] 
