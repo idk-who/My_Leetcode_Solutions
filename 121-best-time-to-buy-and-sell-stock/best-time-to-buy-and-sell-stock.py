@@ -4,9 +4,7 @@ class Solution:
         ans = 0
 
         for i in prices:
-            if i < mi:
-                mi = i
-            if i - mi > ans:
-                ans = i - mi
+            mi = min(mi, i)
+            ans = max(ans, i - mi)
 
         return ans
