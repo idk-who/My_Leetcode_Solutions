@@ -6,7 +6,7 @@ class Solution:
         for i in prices:
             if i < mi:
                 mi = i
-            elif i - mi > ans:
+            if i - mi > ans:
                 ans = i - mi
 
         return ans
