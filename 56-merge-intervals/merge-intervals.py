@@ -12,7 +12,6 @@ class Solution:
                 merged.append(prev)
                 prev = [u, v]
         
-        if prev:
-            merged.append(prev)
+        merged.append(prev)
         
         return merged
