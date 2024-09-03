@@ -1,13 +1,16 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        def helper(x, n):
-            if n == 0: return 1
-            if n < 0:
-                return 1 / helper(x, -n)
-            if n & 1:
-                return x * helper(x, n-1)
-            return helper(x*x, n//2)
+        if n < 0:
+            n = -n
+            x = 1/x
         
-        return helper(x, n)
+        ans = 1
+        while n:
+            if n & 1:
+                ans *= x
+            x *= x
+            n >>= 1
+
+        return ans
 
 
