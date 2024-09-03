@@ -20,13 +20,6 @@ class Solution:
                 cnt1 -= 1
                 cnt2 -= 1
         
-        cnt1 = cnt2 = 0
-        for i in nums:
-            if i == ele1: cnt1 += 1
-            if i == ele2: cnt2 += 1
-        
-        ans = []
-        if cnt1 > len(nums)/3: ans.append(ele1)
-        if cnt2 > len(nums)/3: ans.append(ele2)
+        return [i for i in (ele1, ele2) if nums.count(i) > len(nums)/3]
 
-        return ans
+        
