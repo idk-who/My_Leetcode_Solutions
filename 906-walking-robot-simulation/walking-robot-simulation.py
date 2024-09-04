@@ -12,7 +12,7 @@ class Solution:
             if c == -1:
                 h = (h+1)%4
             elif c == -2:
-                h = (h-1)%4
+                h = (h+3)%4
             else:
                 while c and ((pos[0]+dirs[h][0], pos[1]+dirs[h][1]) not in obstacles):
                     c -= 1
