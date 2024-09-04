@@ -7,7 +7,6 @@ class Solution:
         obstacles = {(i,j) for i, j in obstacles}
 
         furthest = 0
-
         for c in commands:
             if c == -1:
                 h = (h+1)%4
@@ -23,3 +22,5 @@ class Solution:
                 )
 
         return furthest
+
+
