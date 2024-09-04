@@ -6,6 +6,7 @@ class Solution:
         ans = 1
         lmax = 1 # local max
         for i in range(1, len(nums)):
+            
             if nums[i-1] == nums[i]: 
                 continue
             if nums[i-1]+1 == nums[i]:
