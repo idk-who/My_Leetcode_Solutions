@@ -11,7 +11,6 @@ class Solution:
 
         quo = diff//n
         rem = diff%n
-        ans = [quo] * n
         ans = [quo + (i < rem) for i in range(n)]
         return ans
     
