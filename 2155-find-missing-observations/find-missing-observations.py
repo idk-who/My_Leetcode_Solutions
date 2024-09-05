@@ -12,8 +12,10 @@ class Solution:
 
         quo = diff//n
         rem = diff%n
-
-        ans = [quo + (i < rem) for i in range(n)]
+        ans = [quo] * n
+        for i in range(rem):
+            ans[i] += 1
+        # ans = [quo + (i < rem) for i in range(n)]
         return ans
         
         
