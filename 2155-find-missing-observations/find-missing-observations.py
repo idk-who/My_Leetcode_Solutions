@@ -6,9 +6,7 @@ class Solution:
         (S + Diff)/(n+m) == mean
         Diff = (mean*(n+m))-S
         '''
-        m = len(rolls)
-        S = sum(rolls)
-        diff = (mean*(n+m))-S
+        diff = (mean*(n+len(rolls)))-sum(rolls)
         if diff < n or diff > 6*n: return []
 
         quo = diff//n
@@ -16,4 +14,5 @@ class Solution:
         ans = [quo] * n
         ans = [quo + (i < rem) for i in range(n)]
         return ans
+    
         
