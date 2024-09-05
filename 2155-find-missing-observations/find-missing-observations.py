@@ -7,12 +7,19 @@ class Solution:
         Diff = (mean*(n+m))-S
         '''
         diff = (mean*(n+len(rolls)))-sum(rolls)
-        if diff < n or diff > 6*n: return []
+        if (diff / n) < 1 or (diff / n) > 6: return []
 
-        quo = diff//n
-        rem = diff%n
-        ans = [quo] * n
-        for i in range(rem): ans[i] += 1
-        return ans
-    
+        missing = []
+        ele = 6
+        while diff > 0:
+            # print(diff, ele, n)
+            if (diff)-(n-1) >= ele:
+                missing.append(ele)
+                diff -= ele
+                n -= 1
+            else:
+                ele -= 1
+        
+        return missing
+        
         
