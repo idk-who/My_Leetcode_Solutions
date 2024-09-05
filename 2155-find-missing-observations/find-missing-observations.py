@@ -6,16 +6,15 @@ class Solution:
         (S + Diff)/(n+m) == mean
         Diff = (mean*(n+m))-S
         '''
-
-        diff = (mean*(n+len(rolls)))-sum(rolls)
+        m = len(rolls)
+        S = sum(rolls)
+        diff = (mean*(n+m))-S
         if (diff / n) < 1 or (diff / n) > 6: return []
 
         quo = diff//n
         rem = diff%n
         ans = [quo] * n
-        for i in range(rem):
-            ans[i] += 1
-        # ans = [quo + (i < rem) for i in range(n)]
+        ans = [quo + (i < rem) for i in range(n)]
         return ans
         
         
