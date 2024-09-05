@@ -1,8 +1,8 @@
 class Solution:
     def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
         '''
-        m = cMean
-        S = cSum
+        m = len(rolls)
+        S = sum(rolls)
         (S + Diff)/(n+m) == mean
         Diff = (mean*(n+m))-S
         '''
@@ -12,7 +12,7 @@ class Solution:
         quo = diff//n
         rem = diff%n
         ans = [quo] * n
-        for i in range(rem): ans[i] += 1
+        ans = [quo + (i < rem) for i in range(n)]
         return ans
     
         
