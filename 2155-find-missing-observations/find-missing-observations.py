@@ -12,7 +12,7 @@ class Solution:
         quo = diff//n
         rem = diff%n
         ans = [quo] * n
-        ans = [quo + (i < rem) for i in range(n)]
+        for i in range(rem): ans[i] += 1
         return ans
     
         
