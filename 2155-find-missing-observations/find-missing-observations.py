@@ -1,10 +1,37 @@
 class Solution:
     def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
-        sm = mean * (n + len(rolls)) - sum(rolls)
-        if sm > n * 6 or sm < n:
+        m = len(rolls)
+        totalSum = mean * (m + n)
+        rollsSum = sum(rolls)
+        
+        missingSum = totalSum - rollsSum
+        
+        if missingSum < n or missingSum > 6 * n:
             return []
-        ans = [sm // n] * n
-        lo = sm % n
-        for i in range(lo):
-            ans[i] += 1
-        return ans
+        
+        quotient, remainder = divmod(missingSum, n)
+        return [quotient + (1 if i < remainder else 0) for i in range(n)]
+
+def main():
+    inputs = map(loads, sys.stdin)
+    results = []
+
+    while True:
+        try:
+            rolls = next(inputs)
+            mean = next(inputs)
+            n = next(inputs)
+            
+            result = Solution().missingRolls(rolls, mean, n)
+            results.append(result)
+        except StopIteration:
+            break
+
+    with open("user.out", "w") as f:
+        for result in results:
+            print(dumps(result).replace(", ", ","), file=f)
+
+if __name__ == "__main__":
+    main()
+    sys.exit(0)
+#kartikdevsharmaa
