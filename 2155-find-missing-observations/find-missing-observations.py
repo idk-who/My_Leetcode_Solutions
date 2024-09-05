@@ -9,7 +9,7 @@ class Solution:
         m = len(rolls)
         S = sum(rolls)
         diff = (mean*(n+m))-S
-        if (diff / n) < 1 or (diff / n) > 6: return []
+        if diff < n or diff > 6*n: return []
 
         quo = diff//n
         rem = diff%n
