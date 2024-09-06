@@ -1,18 +1,17 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        imax = nums[0]
-        imin = nums[0]
-        r = nums[0]
+        ans = float("-inf")
 
-        for i in nums[1:]:
-            candidates = (i, imax*i, imin*i)
+        pre = 1
+        for i in nums:
+            if pre == 0: pre = 1
+            pre *= i
+            ans = max(ans, pre)
 
-            imax = max(candidates)
-            imin = min(candidates)
-
-            r = max(r, imax)
-
-        return r
-
-
-            
+        suf = 1
+        for i in reversed(nums):
+            if suf == 0: suf = 1
+            suf *= i
+            ans = max(ans, suf)
+        
+        return ans
