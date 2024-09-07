@@ -14,16 +14,16 @@ class Solution:
         def rec2(root, head):
             if head is None: return True
             if root is None: return False
+            
             if root.val == head.val:
                 return rec2(root.left, head.next) or rec2(root.right, head.next)
             else:
                 return False
-            
 
         def rec(root, head):
             if head is None: return True
             if root is None: return False
 
             return rec2(root, head) or rec(root.left, head) or rec(root.right, head)
-            
+
         return rec(root, head)
