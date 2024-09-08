@@ -7,14 +7,14 @@ class Solution:
 
         for i in range(len(coins)):
             for j in range(amount+1):
+                dp[i][j] = dp[i-1][j]
                 if coins[i] <= j:
                     dp[i][j] = min(
-                        dp[i-1][j],
+                        dp[i][j],
                         1 + dp[i-1][j-coins[i]],
                         1 + dp[i][j-coins[i]]
                     )
-                else:
-                    dp[i][j] = dp[i-1][j]
+                    
         
         return dp[-1][-1] if dp[-1][-1] != float("inf") else -1
 
