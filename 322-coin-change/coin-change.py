@@ -1,27 +1,23 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [[-1]*(amount+1) for i in range(len(coins))]
+        dp = [[float('inf')]*(amount+1) for i in range(len(coins)+1)]
+        dp[0][0] = 0
+        for i in range(len(coins)+1):
+            dp[i][0] = 0
 
-        def rec(coins, amount, ptr, dp):
-            if amount == 0:
-                return 0
-            if amount < 0 or ptr == len(coins):
-                return float("inf")
-            
-            if dp[ptr][amount] != -1:
-                return dp[ptr][amount]
-            
-            mi = min(
-                rec(coins, amount, ptr+1, dp),
-                1 + rec(coins, amount-coins[ptr], ptr, dp)
-            )
-            dp[ptr][amount] = mi
-
-            return mi
-
-        ans = rec(coins, amount, 0, dp)
-        return ans if ans != float('inf') else -1
-
-
+        for i in range(1, len(coins)+1):
+            for j in range(1, amount+1):
+                if coins[i-1] <= j:
+                    dp[i][j] = min(
+                        dp[i-1][j],
+                        1 + dp[i-1][j-coins[i-1]],
+                        1 + dp[i][j-coins[i-1]]
+                    )
+                else:
+                    dp[i][j] = dp[i-1][j]
+        # for i in dp:
+        #     print(i)
+        
+        return dp[-1][-1] if dp[-1][-1] != float("inf") else -1
 
 
