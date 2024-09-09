@@ -4,32 +4,44 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def spiralMatrix(self, m: int, n: int, head: "ListNode") -> List[List[int]]:
-        # Store the east, south, west, north movements in a matrix.
-        i = 0
-        j = 0
-        cur_d = 0
-        movement = [[0, 1], [1, 0], [0, -1], [-1, 0]]
-        res = [[-1 for _ in range(n)] for _ in range(m)]
+    def spiralMatrix(self, m: int, n: int, head: Optional[ListNode]) -> List[List[int]]:
+        n, m = m, n
+        ans = [[-1]*m for _ in range(n)]
 
-        while head is not None:
-            res[i][j] = head.val
-            newi = i + movement[cur_d][0]
-            newj = j + movement[cur_d][1]
+        def get_val():
+            nonlocal head
+            if head:
+                v = head.val
+                head = head.next
+                return v
+            else:
+                return -1
 
-            # If we bump into an edge or an already filled cell, change the
-            # direction.
-            if (
-                   newi < 0 
-                or newj < 0
-                or newi >= m
-                or newj >= n
-                or res[newi][newj] != -1
-            ):
-                cur_d = (cur_d + 1) % 4
-            i += movement[cur_d][0]
-            j += movement[cur_d][1]
+        left = 0
+        right = m-1
+        up = 0
+        down = n-1
 
-            head = head.next
+        while head and left <= right and up <= down:
+            
+            for j in range(left, right+1):
+                ans[up][j] = get_val()
+            up += 1
 
-        return res
+            for i in range(up, down+1):
+                ans[i][right] = get_val()
+            right -= 1
+
+            if up > down: break
+            
+            for j in range(right, left-1, -1):
+                ans[down][j] = get_val()
+            down -= 1
+
+            if left > right: break
+
+            for i in range(down, up-1, -1):
+                ans[i][left] = get_val()
+            left += 1
+        
+        return ans
