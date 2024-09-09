@@ -32,13 +32,13 @@ class Solution:
                 ans[i][right] = get_val()
             right -= 1
 
-            if up > down: continue
+            if up > down: break
             
             for j in range(right, left-1, -1):
                 ans[down][j] = get_val()
             down -= 1
 
-            if left > right: continue
+            if left > right: break
 
             for i in range(down, up-1, -1):
                 ans[i][left] = get_val()
