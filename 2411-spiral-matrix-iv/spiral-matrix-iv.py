@@ -6,7 +6,7 @@
 class Solution:
     def spiralMatrix(self, m: int, n: int, head: Optional[ListNode]) -> List[List[int]]:
         n, m = m, n
-        ans = [[-2]*m for _ in range(n)]
+        ans = [[-1]*m for _ in range(n)]
 
         def get_val():
             nonlocal head
@@ -22,7 +22,7 @@ class Solution:
         up = 0
         down = n-1
 
-        while left <= right and up <= down:
+        while head and left <= right and up <= down:
             # print("LOOP")
             for j in range(left, right+1):
                 ans[up][j] = get_val()
