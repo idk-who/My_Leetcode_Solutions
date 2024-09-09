@@ -1,24 +1,26 @@
 class Solution:
     def minCost(self, n: int, cuts: List[int]) -> int:
         cuts.sort()
+        cuts = [0] + cuts + [n]
+        dp = dict()
         
-        def rec(r1, r2, cuts, i, j, dp):
-            if i > j:
+        def rec(cuts, i, j, dp):
+            if j - i == 1:
                 return 0
             if (i, j) in dp:
                 return dp[(i, j)]
 
             mi = float('inf')
-            for k in range(i, j+1):
+            for k in range(i+1, j):
                 mi = min(
                     mi,
-                    r2-r1 + (
-                        rec(r1, cuts[k], cuts, i, k-1, dp) + 
-                        rec(cuts[k], r2, cuts, k+1, j, dp)
+                    cuts[j] - cuts[i] + (
+                        rec(cuts, i, k, dp) + 
+                        rec(cuts, k, j, dp)
                     )
                 )
             dp[(i, j)] = mi
-
+            
             return mi
         
-        return rec(0, n, cuts, 0, len(cuts)-1, dict())
+        return rec(cuts, 0, len(cuts)-1, dp)
