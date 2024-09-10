@@ -1,24 +1,20 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        wd = set(wordDict)
-        mi = len(min(wordDict, key = len))
-        ma = len(max(wordDict, key = len))
-        dp = dict()
+        words = set(wordDict)
+        queue = deque([0])
+        seen = set()
 
-        def rec(ptr, dp):
-            if ptr == len(s):
+        while queue:
+            start = queue.popleft()
+            if start == len(s):
                 return True
-            if ptr in dp:
-                return dp[ptr]
-            
-            po = False
-            for i in range(mi, ma+1):
-                if s[ptr:ptr+i] in wd:
-                    if rec(ptr+i, dp):
-                        po = True
-                        break
-            dp[ptr] = po
-            
-            return po
 
-        return rec(0, dp)
+            for end in range(start + 1, len(s) + 1):
+                if end in seen:
+                    continue
+
+                if s[start:end] in words:
+                    queue.append(end)
+                    seen.add(end)
+
+        return False
