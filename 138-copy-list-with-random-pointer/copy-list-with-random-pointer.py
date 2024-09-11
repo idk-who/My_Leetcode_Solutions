@@ -16,7 +16,7 @@ class Solution:
         store = dict()
 
         while old_ptr:
-            print(old_ptr.val)
+            
             if old_ptr in store:
                 new_node = store[old_ptr]
             else:
