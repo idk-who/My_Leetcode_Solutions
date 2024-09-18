@@ -1,14 +1,17 @@
+from functools import cmp_to_key
+
+
 class Solution:
     def largestNumber(self, nums: List[int]) -> str:
-        # Convert each integer to a string
-        num_strings = [str(num) for num in nums]
+        nums = list(map(str, nums))
 
-        # Sort strings based on concatenated values
-        num_strings.sort(key=lambda a: a * 9, reverse=True)
+        def compare(x, y):
+            if x+y > y+x:
+                return 1
+            else:
+                return -1
 
-        # Handle the case where the largest number is zero
-        if num_strings[0] == "0":
-            return "0"
+        nums.sort(key = cmp_to_key(compare), reverse=True)
 
-        # Concatenate sorted strings to form the largest number
-        return "".join(num_strings)
+        return str(int("".join(nums)))
+
