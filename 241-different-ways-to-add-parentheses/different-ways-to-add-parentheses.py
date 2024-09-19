@@ -3,8 +3,6 @@ class Solution:
         expr = expression
 
         def rec(l, r):
-            if l > r:
-                return [0]
             if l == r or (l + 1 == r and expr[l:r+1].isdigit()):
                 return [int(expr[l:r+1])]
 
