@@ -2,6 +2,7 @@ class Solution:
     def diffWaysToCompute(self, expression: str) -> List[int]:
         expr = expression
 
+        @cache
         def rec(l, r):
             if l > r:
                 return [0]
