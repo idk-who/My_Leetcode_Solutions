@@ -1,17 +1,18 @@
 class Solution:
     def lexicalOrder(self, n: int) -> List[int]:
         result = []
+        limit = n
+        num = 1
 
-        def rec(num, limit):
-            if num > limit:
-                return
+        for _ in range(n):
             result.append(num)
-            for i in range(10):
-                new_num = num*10 + i
-                if new_num > limit: break
-                rec(new_num, limit)
 
-        for i in range(1, 10): 
-            rec(i, n)
-            
+            if num * 10 <= limit:
+                num *= 10
+            else:
+                while num % 10 == 9 or num >= n:
+                    num //= 10
+                num += 1
+        
         return result
+
