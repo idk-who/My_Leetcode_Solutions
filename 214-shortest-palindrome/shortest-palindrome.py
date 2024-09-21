@@ -1,37 +1,51 @@
 class Solution:
     def shortestPalindrome(self, s: str) -> str:
-        hash_base = 29
-        mod_value = int(1e9 + 7)
-        forward_hash = 0
-        reverse_hash = 0
-        power_value = 1
-        palindrome_end_index = -1
+        # Return early if the string is null or empty
+        if not s:
+            return s
 
-        # Calculate rolling hashes and find the longest palindromic prefix
-        for i, current_char in enumerate(s):
-            # Update forward hash
-            forward_hash = (
-                forward_hash * hash_base + (ord(current_char) - ord("a") + 1)
-            ) % mod_value
+        # Preprocess the string to handle palindromes uniformly
+        modified_string = self._preprocess_string(s)
+        n = len(modified_string)
+        palindrome_radius_array = [0] * n
+        center = 0
+        right_boundary = 0
+        max_palindrome_length = 0
 
-            # Update reverse hash
-            reverse_hash = (
-                reverse_hash + (ord(current_char) - ord("a") + 1) * power_value
-            ) % mod_value
-            power_value = (power_value * hash_base) % mod_value
+        # Iterate through each character in the modified string
+        for i in range(1, n - 1):
+            mirror_index = 2 * center - i
 
-            # If forward and reverse hashes match, update palindrome end index
-            if forward_hash == reverse_hash:
-                palindrome_end_index = i
+            # Use previously computed values to avoid redundant calculations
+            if right_boundary > i:
+                palindrome_radius_array[i] = min(
+                    right_boundary - i, palindrome_radius_array[mirror_index]
+                )
 
-        # Find the remaining suffix after the longest palindromic prefix
-        suffix = s[palindrome_end_index + 1 :]
+            # Expand around the current center while characters match
+            while (
+                modified_string[i + 1 + palindrome_radius_array[i]]
+                == modified_string[i - 1 - palindrome_radius_array[i]]
+            ):
+                palindrome_radius_array[i] += 1
 
-        # Reverse the remaining suffix
-        reversed_suffix = suffix[::-1]
+            # Update the center and right boundary if the palindrome extends beyond the current boundary
+            if i + palindrome_radius_array[i] > right_boundary:
+                center = i
+                right_boundary = i + palindrome_radius_array[i]
 
-        # Prepend the reversed suffix to the original string and return the result
-        return reversed_suffix + s
+            # Update the maximum length of palindrome starting at the beginning
+            if i - palindrome_radius_array[i] == 1:
+                max_palindrome_length = max(
+                    max_palindrome_length, palindrome_radius_array[i]
+                )
 
+        # Construct the shortest palindrome by reversing the suffix and prepending it to the original string
+        suffix = s[max_palindrome_length:][::-1]
+        return suffix + s
+
+    def _preprocess_string(self, s: str) -> str:
+        # Add boundaries and separators to handle palindromes uniformly
+        return "^" + "#" + "#".join(s) + "#$"
 
         
