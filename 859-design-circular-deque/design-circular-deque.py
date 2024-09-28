@@ -1,77 +1,54 @@
-class Node:
-    def __init__(self, val, next=None, prev=None):
-        self.val = val
-        self.next = next
-        self.prev = prev
-
-
 class MyCircularDeque:
 
-    def __init__(self, k: int):
+    def __init__(self, k):
+        self.queue = [0] * k
+        self.front = 0
+        self.rear = k - 1
         self.size = 0
         self.capacity = k
-        self.head = None
-        self.rear = None
 
-    def insertFront(self, value: int) -> bool:
+    def insertFront(self, value):
         if self.isFull():
             return False
-        if self.head is None:
-            self.head = Node(value, None, None)
-            self.rear = self.head
-        else:
-            newHead = Node(value, self.head, None)
-            self.head.prev = newHead
-            self.head = newHead
-
+        self.front = (self.front - 1 + self.capacity) % self.capacity
+        self.queue[self.front] = value
         self.size += 1
         return True
 
-    def insertLast(self, value: int) -> bool:
+    def insertLast(self, value):
         if self.isFull():
             return False
-        if self.head is None:
-            self.head = Node(value, None, None)
-            self.rear = self.head
-        else:
-            self.rear.next = Node(value, None, self.rear)
-            self.rear = self.rear.next
-
+        self.rear = (self.rear + 1) % self.capacity
+        self.queue[self.rear] = value
         self.size += 1
         return True
 
-    def deleteFront(self) -> bool:
+    def deleteFront(self):
         if self.isEmpty():
             return False
-        if self.size == 1:
-            self.head = None
-            self.rear = None
-        else:
-            self.head = self.head.next
-
+        self.front = (self.front + 1) % self.capacity
         self.size -= 1
         return True
 
-    def deleteLast(self) -> bool:
+    def deleteLast(self):
         if self.isEmpty():
             return False
-        if self.size == 1:
-            self.head = None
-            self.rear = None
-        else:
-            self.rear = self.rear.prev
-
+        self.rear = (self.rear - 1 + self.capacity) % self.capacity
         self.size -= 1
         return True
 
-    def getFront(self) -> int:
-        return -1 if self.isEmpty() else self.head.val
+    def getFront(self):
+        if self.isEmpty():
+            return -1
+        return self.queue[self.front]
 
-    def getRear(self) -> int:
-        return -1 if self.isEmpty() else self.rear.val
+    def getRear(self):
+        if self.isEmpty():
+            return -1
+        return self.queue[self.rear]
 
-    def isEmpty(self) -> bool:
+    def isEmpty(self):
         return self.size == 0
 
-    def isFull(self) -> bool:
+    def isFull(self):
         return self.size == self.capacity
