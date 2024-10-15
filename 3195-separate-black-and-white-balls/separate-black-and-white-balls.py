@@ -1,11 +1,12 @@
 class Solution:
     def minimumSteps(self, s: str) -> int:
         ans = 0
-        cnt_wb = 0
+        cnt_bb = 0
 
-        for ind, ele in enumerate(s):
+        for ele in s:
             if ele == '0':
-                ans += (ind - cnt_wb)
-                cnt_wb += 1
+                ans += cnt_bb
+            else:
+                cnt_bb += 1
         
         return ans
