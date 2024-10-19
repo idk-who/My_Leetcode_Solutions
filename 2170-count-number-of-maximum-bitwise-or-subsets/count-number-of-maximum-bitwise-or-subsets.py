@@ -3,6 +3,7 @@ class Solution:
         ma = 0
         for i in nums: ma |= i
 
+        @cache
         def rec(ptr, temp_or):
             if ptr == len(nums):
                 if temp_or == ma:
@@ -16,4 +17,4 @@ class Solution:
         return rec(0, 0)
 
 
-
+        
