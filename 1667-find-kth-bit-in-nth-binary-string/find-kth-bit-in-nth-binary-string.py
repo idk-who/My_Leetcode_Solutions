@@ -4,6 +4,7 @@ class Solution:
         sn = [False]
         
         for i in range(1, n+1):
-            sn = sn + [True] + list(reversed(list(map(lambda x: not x, sn))))
+            sn.append(True)
+            sn.extend(list(reversed(list(map(lambda x: not x, sn[:-1])))))
         
         return '1' if sn[k-1] else '0'
