@@ -5,13 +5,14 @@ class Solution:
         for i, (p, b) in enumerate(items):
             ma = max(ma, b)
             items[i][1] = ma
+        
         ans = []
-        # print(items)
         for q in queries:
+            ma = 0
+            
             lo = 0
             hi = len(items) - 1
             mi = 0
-            ma = 0
             while lo <= hi:
                 mi = (lo+hi)//2
                 if items[mi][0] > q:
