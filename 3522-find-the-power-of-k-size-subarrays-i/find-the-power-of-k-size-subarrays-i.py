@@ -1,10 +1,10 @@
 class Solution:
     def resultsArray(self, nums: List[int], k: int) -> List[int]:
         cons = k
-        prev = float("-inf")
+        prev = 0
         ans = []
         for i, ele in enumerate(nums):
-            if prev == float("-inf") or prev+1 == ele:
+            if i == 0 or prev+1 == ele:
                 cons -= 1
                 prev = ele
             else:
