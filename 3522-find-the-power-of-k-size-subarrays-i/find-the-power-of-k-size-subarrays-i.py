@@ -11,7 +11,7 @@ class Solution:
                 prev = ele
                 cons = k-1
                 
-            if i >= k-1:
+            if i + 1 >= k:
                 if cons <= 0:
                     ans.append(ele)
                 else:
