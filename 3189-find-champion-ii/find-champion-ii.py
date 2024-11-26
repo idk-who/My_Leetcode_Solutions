@@ -1,8 +1,8 @@
 class Solution:
     def findChampion(self, n: int, edges: List[List[int]]) -> int:
-        teams = [0]*n
+        teams = [True]*n
         for u, v in edges:
-            teams[v] += 1
-        if teams.count(0) > 1: 
+            teams[v] = False
+        if teams.count(True) > 1: 
             return -1
-        return teams.index(0)
+        return teams.index(True)
