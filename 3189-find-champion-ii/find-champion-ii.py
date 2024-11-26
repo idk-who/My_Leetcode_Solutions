@@ -1,21 +1,23 @@
 class Solution:
-    def findChampion(self, n: int, edges: list[list[int]]) -> int:
-        # Initialize the indegree array to track the number of incoming edges for each team
-        indegree = [0] * n
+    def findChampion(self, n: int, edges: List[List[int]]) -> int:
+        # if len(edges) < n - 1: return -1
+        teams = [0]*n
+        adj = [[] for i in range(n)]
+        for u, v in edges:
+            teams[v] += 1
+            adj[u].append(v)
+        if teams.count(0) > 1: 
+            return -1
+        return teams.index(0)
+        # def helper(u):
+        #     cnt = 0
+        #     for v in adj[u]:
+        #         cnt += 1 + helper(v)
+        #     return cnt
 
-        # Store the indegree of each team
-        for edge in edges:
-            indegree[edge[1]] += 1
-
-        champ = -1
-        champ_count = 0
-
-        # Iterate through all teams to find those with an indegree of 0
-        for i in range(n):
-            # If the team can be a champion, store the team number and increment the count
-            if indegree[i] == 0:
-                champ_count += 1
-                champ = i
-
-        # If more than one team can be a champion, return -1, otherwise return the champion team number
-        return champ if champ_count == 1 else -1
+        # for i in range(n):
+        #     if teams[i] == 0:
+        #         if helper(i) == len(edges):
+        #             return i
+        
+        # return -1
