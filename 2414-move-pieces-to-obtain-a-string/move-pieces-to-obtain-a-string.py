@@ -9,11 +9,12 @@ class Solution:
                 p1 += 1
             while p2 < n and target[p2] == "_":
                 p2 += 1
-            print(p1, p2)
+                
             if p1 == n and p2 == n:
                 return True
             if p1 == n or p2 == n:
                 return False
+
             if start[p1] == target[p2]:
                 if start[p1] == 'L':
                     if p1 < p2:
@@ -27,3 +28,5 @@ class Solution:
                 return False
 
         return True
+
+        
