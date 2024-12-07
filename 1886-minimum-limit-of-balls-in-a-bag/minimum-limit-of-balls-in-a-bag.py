@@ -11,7 +11,7 @@ class Solution:
             return True
 
         l = 1
-        r = 10**9
+        r = max(nums)
 
         while l < r:
             m = (l+r)//2
