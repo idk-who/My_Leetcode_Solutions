@@ -2,11 +2,13 @@ class Solution:
     def minimumSize(self, nums: List[int], maxOperations: int) -> int:
 
         def is_poss(penalty):
-            count = 0
+            mop = maxOperations
             for i in nums:
                 if i > penalty:
-                    count += (i-1)//penalty
-            return count <= maxOperations
+                    mop -= (i-1)//penalty
+                if mop < 0:
+                    return False
+            return True
 
         l = 1
         r = max(nums)
