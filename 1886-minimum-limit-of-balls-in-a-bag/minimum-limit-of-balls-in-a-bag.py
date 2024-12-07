@@ -5,7 +5,7 @@ class Solution:
             mop = maxOperations
             for i in nums:
                 if i > penalty:
-                    mop -= ((i//penalty) + ((i%penalty) > 0)) - 1
+                    mop -= (i-1)//penalty
                 if mop < 0:
                     return False
             return True
