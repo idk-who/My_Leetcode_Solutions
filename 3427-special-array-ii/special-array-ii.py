@@ -6,11 +6,10 @@ class Solution:
                 continue
             else:
                 starts.append(i)
-        # print(starts)
+        
         ans = []
         for s, e in queries:
-            p1 = bisect.bisect_right(starts, s)
-            p2 = bisect.bisect_right(starts, e)
-            print(p1, p2)
+            p1 = bisect.bisect(starts, s)
+            p2 = bisect.bisect(starts, e)
             ans.append(p1==p2)
         return ans
