@@ -2,22 +2,30 @@ class Solution:
     def maximumLength(self, s: str) -> int:
         d = defaultdict(int)
 
-        def is_special(string):
-            c = string[0]
-            for i in range(1, len(string)):
-                if string[i] != c:
-                    return False
-            return True
-            
-        n = len(s)
-        for i in range(n):
-            for j in range(i, n):
-                if is_special(s[i:j+1]):
-                    d[s[i:j+1]] += 1
-        
+        d[(s[0], 1)] += 1
+        le = 1
+        for i in range(1, len(s)):
+            if s[i] == s[i-1]:
+                le += 1
+                d[(s[i], le)] += 1
+                if le > 1:
+                    d[(s[i], le-1)] += 1
+                    if le > 2:
+                        d[(s[i], le-2)] += 1
+            else:
+                le = 1
+                d[(s[i], le)] += 1
+            # print(d.items())
         ans = -1
-        for k, v in d.items():
-            if v >= 3:
-                ans = max(ans, len(k))
+        
+        for (c, le), k in d.items():
+            # print(c, le, k)
+            if k >= 3:
+                ans = max(ans, le)
         
         return ans
+
+
+
+
+
