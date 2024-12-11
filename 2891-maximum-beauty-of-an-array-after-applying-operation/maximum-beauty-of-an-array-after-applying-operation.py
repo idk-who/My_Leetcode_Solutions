@@ -4,13 +4,9 @@ class Solution:
         nums.sort()
 
         ans = 1
-        j = 0
-        for i in range(1, n):
-            if nums[i] - nums[j] <= 2*k:
-                ans = max(ans, i-j+1)
-            else:
-                while nums[i] - nums[j] > 2*k:
-                    j += 1
-
+        for i in range(n):
+            upper_bound = bisect.bisect(nums, nums[i]+2*k)
+            ans = max(ans, upper_bound - i)
+            
         return ans 
 
