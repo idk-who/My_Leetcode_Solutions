@@ -1,16 +1,16 @@
 class Solution:
     def maximumBeauty(self, nums: List[int], k: int) -> int:
+        n = len(nums)
         nums.sort()
 
-        ma = 1
-        for i in range(min(nums), max(nums)+1):
-            l = bisect.bisect(nums, i-k)
-            while 0 <= l < len(nums) and nums[l] >= i-k:
-                l -= 1
+        ans = 1
+        j = 0
+        for i in range(1, n):
+            if nums[i] - nums[j] <= 2*k:
+                ans = max(ans, i-j+1)
+            else:
+                while nums[i] - nums[j] > 2*k:
+                    j += 1
 
-            r = bisect.bisect(nums, i+k) - 1
-
-            ma = max(ma, r-l)
-        
-        return ma
+        return ans 
 
