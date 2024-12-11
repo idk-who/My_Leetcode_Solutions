@@ -28,11 +28,11 @@ class Solution:
                 else:
                     l = m + 1
 
-            return r
+            return l
 
         for i in range(min(nums), max(nums)+1):
             l = find_l(nums, i-k)
-            r = find_r(nums, i+k)
+            r = find_r(nums, i+k) - 1
             # print(i, l, r)
             ma = max(ma, r-l)
         
