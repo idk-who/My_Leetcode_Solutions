@@ -1,27 +1,30 @@
 class Solution:
     def repeatLimitedString(self, s: str, repeatLimit: int) -> str:
-        freq = [0] * 26
-        for char in s:
-            freq[ord(char) - ord("a")] += 1
+        freq = [0]*26
+        for i in s:
+            freq[ord(i)-ord('a')] += 1
+        
+        ans = []
+        ptr = 26-1
+        next_ptr = 26-2
 
-        result = []
-        current_char_index = 25  # Start from the largest character
-        while current_char_index >= 0:
-            if freq[current_char_index] == 0:
-                current_char_index -= 1
+        while ptr >= 0:
+            if freq[ptr] == 0:
+                ptr -= 1
                 continue
 
-            use = min(freq[current_char_index], repeatLimit)
-            result.append(chr(current_char_index + ord("a")) * use)
-            freq[current_char_index] -= use
+            to_use = min(freq[ptr], repeatLimit)
+            ans += [chr(ptr+ord('a'))]*to_use
+            freq[ptr] -= to_use
 
-            if freq[current_char_index] > 0:  # Need to add a smaller character
-                smaller_char_index = current_char_index - 1
-                while smaller_char_index >= 0 and freq[smaller_char_index] == 0:
-                    smaller_char_index -= 1
-                if smaller_char_index < 0:
+            if freq[ptr] > 0:
+                while next_ptr >= ptr:
+                    next_ptr -= 1
+                while next_ptr >= 0 and freq[next_ptr] == 0:
+                    next_ptr -= 1
+                if next_ptr < 0:
                     break
-                result.append(chr(smaller_char_index + ord("a")))
-                freq[smaller_char_index] -= 1
-
-        return "".join(result)
+                ans += [chr(next_ptr+ord('a'))]
+                freq[next_ptr] -= 1
+        
+        return "".join(ans)
