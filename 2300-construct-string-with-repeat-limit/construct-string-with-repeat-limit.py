@@ -1,26 +1,20 @@
 class Solution:
     def repeatLimitedString(self, s: str, repeatLimit: int) -> str:
-        freq = [0]*26
-        for i in s:
-            freq[ord(i)-ord('a')] += 1
-        
-        ans = []
-        ptr = 26-1
+        max_heap = [(-ord(c), cnt) for c, cnt in Counter(s).items()]
+        heapify(max_heap)
+        result = []
 
-        while ptr >= 0:
-            to_use = min(freq[ptr], repeatLimit)
-            ans += [chr(ptr+ord('a'))]*to_use
-            freq[ptr] -= to_use
+        while max_heap:
+            char_neg, count = heappop(max_heap)
+            char = chr(-char_neg)
+            use = min(count, repeatLimit)
+            result.append(char * use)
 
-            if freq[ptr] > 0:
-                next_chr = ptr - 1
-                while next_chr >= 0 and freq[next_chr] == 0:
-                    next_chr -= 1
-                if next_chr < 0:
-                    break
-                ans += [chr(next_chr+ord('a'))]
-                freq[next_chr] -= 1
-            else:
-                ptr -= 1
-        
-        return "".join(ans)
+            if count > use and max_heap:
+                next_char_neg, next_count = heappop(max_heap)
+                result.append(chr(-next_char_neg))
+                if next_count > 1:
+                    heappush(max_heap, (next_char_neg, next_count - 1))
+                heappush(max_heap, (char_neg, count - use))
+
+        return "".join(result)
