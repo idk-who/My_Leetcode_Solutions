@@ -8,10 +8,6 @@ class Solution:
         ptr = 26-1
 
         while ptr >= 0:
-            if freq[ptr] == 0:
-                ptr -= 1
-                continue
-
             to_use = min(freq[ptr], repeatLimit)
             ans += [chr(ptr+ord('a'))]*to_use
             freq[ptr] -= to_use
