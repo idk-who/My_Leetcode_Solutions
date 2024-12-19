@@ -1,22 +1,16 @@
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
-        n = len(arr)
+        count = []
+        d = defaultdict(int)
+        for i in arr:
+            d[i] += 1
+            count.append((i, d[i]))
 
-        prefixMax = [0]*len(arr)
-        ma = float('-inf')
-        for i in range(n):
-            ma = max(arr[i], ma)
-            prefixMax[i] = ma
-
-        suffixMin = [0]*len(arr)
-        mi = float('inf')
-        for i in range(n-1, -1, -1):
-            mi = min(arr[i], mi)
-            suffixMin[i] = mi
-
-        chunks = 1
-        for i in range(1, n):
-            if suffixMin[i] >= prefixMax[i-1]:
+        chunks = 0
+        ma = (0, 0)
+        for x, y in zip(count, sorted(count)):
+            ma = max(ma, x)
+            if y == ma:
                 chunks += 1
         
         return chunks
