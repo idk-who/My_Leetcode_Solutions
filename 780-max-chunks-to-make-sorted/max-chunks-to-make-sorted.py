@@ -2,7 +2,6 @@ class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
         present = [0]*len(arr)
         ans = 0
-        prev = 0
         ts = 0  #total sum
         si = 0  #sum from prev till i
 
@@ -15,14 +14,11 @@ class Solution:
             # collecting from past occurunces
             si += present[i]
             # collecting if past occurs
-            if prev <= arr[i] < i:
+            if arr[i] < i:
                 si += 1
                 
             # print(ts, si)
-            if si == ts == i - prev + 1:
+            if si == ts == i + 1:
                 ans += 1
-                prev = i + 1
-                ts = ts - si
-                si = 0
         
         return ans
