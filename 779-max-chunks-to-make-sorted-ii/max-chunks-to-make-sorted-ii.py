@@ -1,18 +1,25 @@
 class Solution:
     def maxChunksToSorted(self, arr: List[int]) -> int:
-        stack = []
+        n = len(arr)
+
+        prefixMax = [0]*len(arr)
+        ma = float('-inf')
+        for i in range(n):
+            ma = max(arr[i], ma)
+            prefixMax[i] = ma
+
+        suffixMin = [0]*len(arr)
+        mi = float('inf')
+        for i in range(n-1, -1, -1):
+            mi = min(arr[i], mi)
+            suffixMin[i] = mi
+
+        chunks = 1
+        for i in range(1, n):
+            if suffixMin[i] >= prefixMax[i-1]:
+                chunks += 1
         
-        for i in arr:
-            if not stack or i >= stack[-1]:
-                stack.append(i)
-            else:
-                ma = stack[-1]
-                while stack and i < stack[-1]:
-                    stack.pop()
-                stack.append(ma)
+        return chunks
 
-        return len(stack)
 
         
-
-
