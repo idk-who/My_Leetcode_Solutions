@@ -4,27 +4,15 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
-from collections import deque
-
 class Solution:
     def reverseOddLevels(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        q = deque([root])
+        def rec(left, right, odd=True):
+            if left:
+                if odd:
+                    left.val, right.val = right.val, left.val
 
-        odd_level = False
+                rec(left.left, right.right, not odd)
+                rec(left.right, right.left, not odd)
 
-        while q:
-            if odd_level:
-                lev_len = len(q)
-                for i in range(lev_len//2):
-                    q[i].val, q[lev_len-i-1].val = q[lev_len-i-1].val, q[i].val
-            lev_len = len(q)
-            for i in range(lev_len):
-                node = q.popleft()
-                if node.left:
-                    q.append(node.left)
-                    q.append(node.right)
-        
-            odd_level = not odd_level
-    
+        rec(root.left, root.right, True)
         return root
