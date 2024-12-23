@@ -13,22 +13,20 @@ class Solution:
 
         def count_swaps():
             cnt = 0
-            org = [i.val for i in q]
-            pos = {val: ind for ind, val in enumerate(org)}
-            srt = sorted(org)
+            org = [[i.val, ind] for ind, i in enumerate(q)]
+            org.sort()
+            
             ptr = 0
             while ptr < len(org):
-                if org[ptr] != srt[ptr]:
-                    cnt += 1
-                    srt_ind = pos[srt[ptr]]
-                    pos[org[ptr]] = srt_ind
-                    org[srt_ind] = org[ptr] 
+                if org[ptr][1] != ptr and org[ptr][0] != -1:
+                    cycle_ln = 0
 
-                    # The blow also works (but a bit unoptimal)
-                    # srt_ind = pos[srt[ptr]]
-                    # pos[org[ptr]] = srt_ind
-                    # pos[org[srt_ind]] = ptr
-                    # org[ptr], org[srt_ind] = org[srt_ind], org[ptr]
+                    while org[ptr][0] != -1:
+                        org[ptr][0] = -1
+                        ptr = org[ptr][1]
+                        cycle_ln += 1
+                    cnt += cycle_ln - 1
+                    
                 ptr += 1
             
             return cnt
