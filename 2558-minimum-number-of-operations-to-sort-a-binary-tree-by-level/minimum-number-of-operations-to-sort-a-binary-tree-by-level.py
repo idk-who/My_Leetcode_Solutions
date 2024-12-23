@@ -5,47 +5,41 @@
 #         self.left = left
 #         self.right = right
 
+from collections import deque
+
 class Solution:
-    def minimumOperations(self, root: Optional["TreeNode"]) -> int:
-        queue = deque([root])
-        total_swaps = 0
+    def minimumOperations(self, root: Optional[TreeNode]) -> int:
+        q = deque([root]) 
 
-        # Process tree level by level using BFS
-        while queue:
-            level_size = len(queue)
-            level_values = []
+        def count_swaps():
+            cnt = 0
+            org = [(i.val, ind) for ind, i in enumerate(q)]
+            org = sorted(org)
+            ptr = 0
+            while ptr < len(org):
+                # print(org)
+                if org[ptr][1] == ptr:
+                    ptr += 1
+                else:
+                    cnt += 1
+                    # print("swap", org[ptr], org[org[ptr][1]])
+                    ind = org[ptr][1]
+                    org[ptr], org[ind] = org[ind], org[ptr]
+                    # print(org)
+            
+            return cnt
 
-            # Store level values and add children to queue
-            for _ in range(level_size):
-                node = queue.popleft()
-                level_values.append(node.val)
 
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
+        ans = 0
+        while q:
+            ans += count_swaps()
 
-            # Add minimum swaps needed for current level
-            total_swaps += self._get_min_swaps(level_values)
-
-        return total_swaps
-
-    # Calculate minimum swaps needed to sort an array
-    def _get_min_swaps(self, original: list) -> int:
-        swaps = 0
-        target = sorted(original)
-
-        # Map to track current positions of values
-        pos = {val: idx for idx, val in enumerate(original)}
-
-        # For each position, swap until correct value is placed
-        for i in range(len(original)):
-            if original[i] != target[i]:
-                swaps += 1
-
-                # Update position of swapped values
-                cur_pos = pos[target[i]]
-                pos[original[i]] = cur_pos
-                original[cur_pos] = original[i]
-
-        return swaps
+            for _ in range(len(q)):
+                n = q.popleft()
+                if n.left:
+                    q.append(n.left)
+                if n.right:
+                    q.append(n.right)
+            # print(q)
+        
+        return ans
