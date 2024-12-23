@@ -13,22 +13,17 @@ class Solution:
 
         def count_swaps():
             cnt = 0
-            org = [(i.val, ind) for ind, i in enumerate(q)]
-            org = sorted(org)
+            org = sorted([(i.val, ind) for ind, i in enumerate(q)])
             ptr = 0
             while ptr < len(org):
-                # print(org)
                 if org[ptr][1] == ptr:
                     ptr += 1
                 else:
                     cnt += 1
-                    # print("swap", org[ptr], org[org[ptr][1]])
                     ind = org[ptr][1]
                     org[ptr], org[ind] = org[ind], org[ptr]
-                    # print(org)
             
             return cnt
-
 
         ans = 0
         while q:
@@ -40,6 +35,5 @@ class Solution:
                     q.append(n.left)
                 if n.right:
                     q.append(n.right)
-            # print(q)
         
         return ans
