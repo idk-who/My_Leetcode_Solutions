@@ -1,15 +1,20 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        
-        def rec(nums, target, ptr, dp):
-            if ptr == len(nums):
-                return target == 0
+        n = len(nums)
+        dp = dict()
+        def rec(ptr, su):
+            if ptr == n:
+                return su == target
+            
+            if (ptr, su) in dp:
+                return dp[(ptr, su)]
+            
+            poss = (
+                rec(ptr+1, su+nums[ptr]) + 
+                rec(ptr+1, su-nums[ptr])
+            )
+            dp[(ptr, su)] = poss
 
-            if (ptr, target) not in dp:
-                dp[(ptr, target)] = (
-                    rec(nums, target-nums[ptr], ptr+1, dp) +
-                    rec(nums, target+nums[ptr], ptr+1, dp)
-                )
-            return dp[(ptr, target)]
+            return poss
         
-        return rec(nums, target, 0, dict())
+        return rec(0, 0)
