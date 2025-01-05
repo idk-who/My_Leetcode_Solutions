@@ -11,9 +11,7 @@ class Solution:
 
         def get_char(c, diff):
             return chr(
-                (
-                    ord(c)-ord('a')+diff
-                )%26
+                (ord(c)-ord('a')+diff)%26
                 + ord('a')
             )
         
