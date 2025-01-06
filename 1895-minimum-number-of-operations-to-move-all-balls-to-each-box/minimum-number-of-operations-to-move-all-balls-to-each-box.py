@@ -1,9 +1,19 @@
 class Solution:
     def minOperations(self, boxes: str) -> List[int]:
-        answer = [0] * len(boxes)
-        for current_box in range(len(boxes)):
-            # If the current box contains a ball, calculate the number of moves for every box.
-            if boxes[current_box] == "1":
-                for new_position in range(len(boxes)):
-                    answer[new_position] += abs(new_position - current_box)
-        return answer
+        n = len(boxes)
+        left = [0]*n
+        right = [0]*n
+
+        for i in range(1, n):
+            left[i] = left[i-1] + (boxes[i-1] == '1')
+        
+        for i in range(n-2, -1, -1):
+            right[i] = right[i+1] + (boxes[i+1] == '1')
+        
+        for i in range(1, n):
+            left[i] += left[i-1]
+        
+        for i in range(n-2, -1, -1):
+            right[i] += right[i+1]
+        
+        return [i+j for i, j in zip(left, right)]
