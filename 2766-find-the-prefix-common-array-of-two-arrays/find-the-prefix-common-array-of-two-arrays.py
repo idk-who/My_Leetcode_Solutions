@@ -1,16 +1,20 @@
 class Solution:
     def findThePrefixCommonArray(self, A: List[int], B: List[int]) -> List[int]:
-        freq = [0]*(len(A)+1)
+        freq = set()
         ans = []
         cnt = 0
         for i in range(len(A)):
-            freq[A[i]] += 1
-            if freq[A[i]] == 2:
+            if A[i] in freq:
                 cnt += 1
-            freq[B[i]] += 1
-            if freq[B[i]] == 2:
+            else:
+                freq.add(A[i])
+            if B[i] in freq:
                 cnt += 1
+            else:
+                freq.add(B[i])
 
             ans.append(cnt)
         
         return ans
+
+
