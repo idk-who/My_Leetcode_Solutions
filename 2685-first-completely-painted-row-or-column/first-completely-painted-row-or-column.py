@@ -3,13 +3,11 @@ class Solution:
         m = len(mat)
         n = len(mat[0])
 
-        row = dict()
-        col = dict()
+        indexes = dict()
 
         for i in range(m):
             for j in range(n):
-                row[mat[i][j]] = i
-                col[mat[i][j]] = j
+                indexes[mat[i][j]] = (i, j)
         
         rows = [0]*m
         cols = [0]*n
@@ -17,7 +15,7 @@ class Solution:
         for i in range(len(arr)):
             ele = arr[i]
 
-            r, c = row[ele], col[ele]
+            r, c = indexes[ele]
 
             rows[r] += 1
             cols[c] += 1
