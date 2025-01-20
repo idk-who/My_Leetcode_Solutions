@@ -5,21 +5,29 @@ class Solution:
 
         indexes = dict()
 
-        for i in range(m):
-            for j in range(n):
-                indexes[mat[i][j]] = (i, j)
-        
-        rows = [0]*m
-        cols = [0]*n
-
         for i in range(len(arr)):
-            ele = arr[i]
-
-            r, c = indexes[ele]
-
-            rows[r] += 1
-            cols[c] += 1
-            if rows[r] == n or cols[c] == m:
-                return i
+            indexes[arr[i]] = i
         
-        return -1
+        ans = float('inf')
+        
+        for i in range(m):
+            ma = float('-inf')
+            for j in range(n):
+                ma = max(
+                    ma,
+                    indexes[mat[i][j]]
+                )
+            
+            ans = min(ans, ma)
+
+        for j in range(n):
+            ma = float('-inf')
+            for i in range(m):
+                ma = max(
+                    ma,
+                    indexes[mat[i][j]]
+                )
+            
+            ans = min(ans, ma)
+
+        return ans
