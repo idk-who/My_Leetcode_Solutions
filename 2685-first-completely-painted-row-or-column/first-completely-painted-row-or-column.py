@@ -17,7 +17,6 @@ class Solution:
                     ma,
                     indexes[mat[i][j]]
                 )
-            
             ans = min(ans, ma)
 
         for j in range(n):
@@ -27,7 +26,6 @@ class Solution:
                     ma,
                     indexes[mat[i][j]]
                 )
-            
             ans = min(ans, ma)
 
         return ans
