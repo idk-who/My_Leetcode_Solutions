@@ -7,7 +7,8 @@ class Solution:
             stack.append(s[i])
 
             while len(stack) >= m and "".join(stack[len(stack)-m:]) == part:
-                    stack = stack[:-m]
+                for _ in range(m):
+                    stack.pop()
         return "".join(stack)
         
 
