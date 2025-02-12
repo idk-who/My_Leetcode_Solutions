@@ -3,7 +3,12 @@ class Solution:
         d = defaultdict(list)
 
         for i in nums:
-            d[sum([int(j) for j in str(i)])].append(i)
+            dig = i
+            dig_sum = 0
+            while dig:
+                dig_sum += dig % 10
+                dig //= 10
+            d[dig_sum].append(i)
         
         def sum_greatest_two(lst):
             g1 = None
