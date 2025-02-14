@@ -1,11 +1,9 @@
 class ProductOfNumbers:
 
     def __init__(self):
-        self.data = []
         self.sum = []
 
     def add(self, num: int) -> None:
-        self.data.append(num)
         if len(self.sum) >= 1:
             self.sum.append(self.sum[-1]*num)
         else:
