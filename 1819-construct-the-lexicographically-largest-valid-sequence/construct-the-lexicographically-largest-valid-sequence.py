@@ -11,26 +11,19 @@ class Solution:
             for i in range(n, 0, -1):
                 if placed[i]:
                     continue
+                seq[pos] = i
+                placed[i] = True
                 if i == 1:
-                    seq[pos] = i
-                    placed[i] = True
                     if rec(seq, pos+1):
                         return True
-                    seq[pos] = -1
-                    placed[i] = False
                 else:
-                    if pos+i > len(seq)-1:
-                        continue
-                    if seq[pos+i] != -1:
-                        continue
-                    seq[pos] = i
-                    seq[pos+i] = i
-                    placed[i] = True
-                    if rec(seq, pos+1):
-                        return True
-                    seq[pos] = -1
-                    seq[pos+i] = -1
-                    placed[i] = False
+                    if pos+i < len(seq) and seq[pos+i] == -1:
+                        seq[pos+i] = i
+                        if rec(seq, pos+1):
+                            return True
+                        seq[pos+i] = -1
+                seq[pos] = -1
+                placed[i] = False
                     
             return False
         
