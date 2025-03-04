@@ -1,14 +1,10 @@
 class Solution:
     def checkPowersOfThree(self, n: int) -> bool:
-        num = n
-        used = set()
-        while num > 0:
-            diff = 1
-            while diff*3 <= num:
-                diff = diff * 3
-            if diff in used:
-                return False
-            used.add(diff)
-            num = num - diff
+        representation = []
+        while n:
+            representation.append(n%3)
+            n //= 3
+        print(representation[::-1])
+            
         
-        return num == 0
+        return all([i!= 2 for i in representation])
