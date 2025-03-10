@@ -1,35 +1,31 @@
 class Solution:
-    def _sieve(self, upper_limit):
-        # Create an integer list to mark prime numbers (True = prime, False = not prime)
-        sieve = [True] * (upper_limit + 1)
-        sieve[0] = sieve[1] = False  # 0 and 1 are not prime
+    def sieve(self, n):
+        nums = [True]*(n+1)
+        nums[0] = False
+        nums[1] = False
 
-        for number in range(2, int(upper_limit**0.5) + 1):
-            if sieve[number]:
-                # Mark all multiples of 'number' as non-prime
-                for multiple in range(number * number, upper_limit + 1, number):
-                    sieve[multiple] = False
-        return sieve
+        for i in range(2, int(n**(1/2))+1):
+            if nums[i]:
+                for j in range(i+i, n+1, i):
+                    nums[j] = False
+                
+        return nums
 
-    def closestPrimes(self, left, right):
-        # Step 1: Get all prime numbers up to 'right' using sieve
-        sieve_array = self._sieve(right)
+    def closestPrimes(self, left: int, right: int) -> List[int]:
+        diff = float('inf')
+        nums = (-1, -1)
 
-        prime_numbers = [
-            num for num in range(left, right + 1) if sieve_array[num]
-        ]
+        primes = self.sieve(right)
 
-        # Step 2: Find the closest prime pair
-        if len(prime_numbers) < 2:
-            return -1, -1  # Less than two primes
+        prev = None
 
-        min_difference = float("inf")
-        closest_pair = (-1, -1)
-
-        for index in range(1, len(prime_numbers)):
-            difference = prime_numbers[index] - prime_numbers[index - 1]
-            if difference < min_difference:
-                min_difference = difference
-                closest_pair = prime_numbers[index - 1], prime_numbers[index]
-
-        return closest_pair
+        for i in range(left, right+1):
+            if primes[i]:
+                if prev:
+                    if i-prev < diff:
+                        diff = i-prev
+                        nums = (prev, i)
+                prev = i
+        
+        return nums
+        
