@@ -1,5 +1,5 @@
 class Solution:
-    def sieve(self, n):
+    def __init__(self, n = 10**6):
         nums = [True]*(n+1)
         nums[0] = False
         nums[1] = False
@@ -8,13 +8,13 @@ class Solution:
             for j in range(i+i, n+1, i):
                 nums[j] = False
                 
-        return nums
+        self.sieve = nums
 
     def closestPrimes(self, left: int, right: int) -> List[int]:
         diff = float('inf')
         nums = (-1, -1)
 
-        primes = self.sieve(right)
+        primes = self.sieve
 
         prev = None
 
