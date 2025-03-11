@@ -23,6 +23,5 @@ class Solution:
                     dc[c]
                 ) + 1
                 ans += poss
-                # print(poss, da[a-1], db[b-1], dc[c-1])
         
         return ans
