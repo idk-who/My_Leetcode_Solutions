@@ -1,19 +1,32 @@
 class Solution:
     def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
         n = len(nums)
-        diff = [0]*(n+1)
-        k = 0
-        su = 0
-        for i in range(n):
-            while su + diff[i] < nums[i]:
-                if k >= len(queries):
-                    return -1
-                l, r, v = queries[k]
-                if r >= i:
-                    diff[max(i, l)] += v
-                    diff[r+1] -= v
-                k += 1
-            
-            su += diff[i]
+        def is_zero(k):
+            pre = [0]*n
+            for i in range(k+1):
+                l, r, v = queries[i]
+                pre[l] += v
+                if r+1 < n:
+                    pre[r+1] -= v
+            su = 0
+            for i in range(n):
+                su += pre[i]
+                if su < nums[i]:
+                    return False
+            return True
+
+        if sum(nums) == 0: return 0
         
-        return k
+        l, r = 0, len(queries) - 1
+
+        while l <= r:
+            m = (l+r)//2
+            if is_zero(m):
+                r = m - 1
+            else:
+                l = m + 1
+        
+        if l+1 <= len(queries):
+            return l+1
+        return -1
+        
