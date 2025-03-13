@@ -16,9 +16,6 @@ class Solution:
             return True
 
         if sum(nums) == 0: return 0
-        # for i in range(len(queries)):
-        #     if is_zero(i):
-        #         return i + 1
         
         ind = bisect.bisect_left(
             list(range(len(queries))), 
