@@ -15,11 +15,11 @@ class Solution:
         mi = 1
         ma = max(candies)
 
-        while mi <= ma:
-            mid = (mi+ma)//2
+        while mi < ma:
+            mid = (mi+ma+1)//2
             if can_allocate(mid):
-                mi = mid + 1
+                mi = mid
             else:
                 ma = mid - 1
         
-        return ma
+        return mi
