@@ -1,25 +1,28 @@
 class Solution:
-    def minCapability(self, nums, k):
-        # Store the maximum nums value in maxReward.
-        min_reward, max_reward = 1, max(nums)
-        total_houses = len(nums)
-
-        # Use binary search to find the minimum reward possible.
-        while min_reward < max_reward:
-            mid_reward = (min_reward + max_reward) // 2
-            possible_thefts = 0
-
-            index = 0
-            while index < total_houses:
-                if nums[index] <= mid_reward:
-                    possible_thefts += 1
-                    index += 2  # Skip the next house to maintain the non-adjacent condition
+    def minCapability(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        def check(nu):
+            ptr = 0 
+            temp_k = k
+            while ptr < n:
+                if nums[ptr] <= nu:
+                    temp_k -= 1
+                    ptr += 2
                 else:
-                    index += 1
+                    ptr += 1
+            
+            return temp_k <= 0
+        
+        lo = min(nums)
+        hi = max(nums)
+        ans = float('inf')
+        while lo <= hi:
+            mid = (lo+hi)//2
 
-            if possible_thefts >= k:
-                max_reward = mid_reward
+            if check(mid):
+                ans = mid
+                hi = mid - 1
             else:
-                min_reward = mid_reward + 1
-
-        return min_reward
+                lo = mid + 1
+        
+        return ans
