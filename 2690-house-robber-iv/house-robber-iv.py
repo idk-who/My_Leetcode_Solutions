@@ -15,14 +15,15 @@ class Solution:
         
         lo = min(nums)
         hi = max(nums)
-        ans = float('inf')
-        while lo <= hi:
+        while lo < hi:
             mid = (lo+hi)//2
-
             if check(mid):
-                ans = mid
-                hi = mid - 1
+                hi = mid
             else:
                 lo = mid + 1
         
-        return ans
+        return hi
+
+
+
+        
