@@ -1,6 +1,3 @@
 class Solution:
     def divideArray(self, nums: List[int]) -> bool:
-        s = 0
-        for i in nums:
-            s ^= (1<<i)
-        return s == 0
+        return reduce(lambda x, y: x^(1<<y), [0]+nums) == 0
