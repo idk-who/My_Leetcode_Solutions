@@ -1,27 +1,37 @@
 class Solution:
     def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
-        # Adjacency lists for each vertex
-        graph = [[] for _ in range(n)]
-        # Map to store frequency of each unique adjacency list
-        component_freq = defaultdict(int)
+        adj = [[] for _ in range(n)]
 
-        # Initialize adjacency lists with self-loops
-        for vertex in range(n):
-            graph[vertex] = [vertex]
+        for u, v in edges:
+            adj[u].append(v)
+            adj[v].append(u)
+        
+        def rec(u):
+            visited.add(u)
+            nodes = 1
+            edges = {(u, v) for v in adj[u]}
 
-        # Build adjacency lists from edges
-        for v1, v2 in edges:
-            graph[v1].append(v2)
-            graph[v2].append(v1)
+            for v in adj[u]:
+                if v not in visited:
+                    n, e = rec(v)
+                    nodes += n
+                    edges |= e 
+            # print(u, nodes, edges)
+            return nodes, edges
+        
+        def su(n):
+            return (n*(n-1))//2
 
-        # Count frequency of each unique adjacency pattern
-        for vertex in range(n):
-            neighbors = tuple(sorted(graph[vertex]))
-            component_freq[neighbors] += 1
-
-        # Count complete components where size equals frequency
-        return sum(
-            1
-            for neighbors, freq in component_freq.items()
-            if len(neighbors) == freq
-        )
+        ans = 0
+        
+        visited = set()
+        for i in range(n):
+            if i not in visited:
+                nodes, edges = rec(i)
+                edges = len(edges)//2
+                # print("MAIN", i, nodes, edges, su(nodes))
+                if edges == su(nodes):
+                    # print("ADD", i)
+                    ans += 1
+    
+        return ans
