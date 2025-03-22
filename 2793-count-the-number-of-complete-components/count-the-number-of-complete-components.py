@@ -9,13 +9,13 @@ class Solution:
         def rec(u):
             visited.add(u)
             nodes = 1
-            edges = {(u, v) for v in adj[u]}
+            edges = len(adj[u])
 
             for v in adj[u]:
                 if v not in visited:
                     n, e = rec(v)
                     nodes += n
-                    edges |= e 
+                    edges += e 
             # print(u, nodes, edges)
             return nodes, edges
         
@@ -28,9 +28,8 @@ class Solution:
         for i in range(n):
             if i not in visited:
                 nodes, edges = rec(i)
-                edges = len(edges)//2
                 # print("MAIN", i, nodes, edges, su(nodes))
-                if edges == su(nodes):
+                if edges//2 == su(nodes):
                     # print("ADD", i)
                     ans += 1
     
