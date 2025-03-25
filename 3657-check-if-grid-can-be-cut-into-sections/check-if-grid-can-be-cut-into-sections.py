@@ -1,28 +1,22 @@
 class Solution:
-    def checkValidCuts(self, n: int, rectangles: list[list[int]]) -> bool:
-        # Check if valid cuts can be made in a specific dimension
-        def _check_cuts(rectangles: list[list[int]], dim: int) -> bool:
-            gap_count = 0
+    def checkValidCuts(self, n: int, rectangles: List[List[int]]) -> bool:
+        rectangles.sort()
 
-            # Sort rectangles by their starting coordinate in the given dimension
-            rectangles.sort(key=lambda rect: rect[dim])
-
-            # Track the furthest ending coordinate seen so far
-            furthest_end = rectangles[0][dim + 2]
-
-            for i in range(1, len(rectangles)):
-                rect = rectangles[i]
-
-                # If current rectangle starts after the furthest end we've seen,
-                # we found a gap where a cut can be made
-                if furthest_end <= rect[dim]:
-                    gap_count += 1
-
-                # Update the furthest ending coordinate
-                furthest_end = max(furthest_end, rect[dim + 2])
-
-            # We need at least 2 gaps to create 3 sections
-            return gap_count >= 2
-
-        # Try both horizontal and vertical cuts
-        return _check_cuts(rectangles, 0) or _check_cuts(rectangles, 1)
+        vertical = 0
+        ma_end = rectangles[0][2]
+        for s, _, e, _ in rectangles:
+            # print(ma_end, s, e)
+            if ma_end <= s:
+                vertical += 1
+            ma_end = max(ma_end, e)
+        
+        rectangles.sort(key = lambda x: x[1])
+        horizontal = 0
+        ma_end = rectangles[0][3]
+        for _, s, _, e in rectangles:
+            # print(ma_end, s, e)
+            if ma_end <= s:
+                horizontal += 1
+            ma_end = max(ma_end, e)
+        print(vertical, horizontal)
+        return vertical >= 2 or horizontal >= 2
