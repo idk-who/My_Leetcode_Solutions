@@ -1,12 +1,9 @@
 class Solution:
     def maximumTripletValue(self, nums: List[int]) -> int:
-        ans = 0
-        for k in range(len(nums)):
-            for j in range(k):
-                for i in range(j):
-                    ans = max(
-                        ans,
-                        (nums[i]-nums[j])*nums[k]
-                    )
-        
+        ans = diff = hi = 0
+        for k in nums:
+            ans = max(ans, k*diff)
+            diff = max(diff, hi-k)
+            hi = max(hi, k)
+
         return ans
