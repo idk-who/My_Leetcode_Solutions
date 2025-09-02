@@ -1,35 +1,17 @@
 class Solution:
     def numberOfPairs(self, points: List[List[int]]) -> int:
-        ans = 0
         n = len(points)
-
+        points.sort(key = lambda x: (-x[1], x[0]))
+        # print(points)
+        ans = 0
         for i in range(n):
-            pointA = points[i]
-            for j in range(n):
-                pointB = points[j]
-                if i == j or not (
-                    pointA[0] <= pointB[0] and pointA[1] >= pointB[1]
-                ):
+            x_ma, y_mi = float('inf'), float('-inf')
+            for j in range(i+1, n):
+                if points[j][0] < points[i][0]:
                     continue
-                if n == 2:
+                if points[j][0] < x_ma or points[j][1] > y_mi:
                     ans += 1
-                    continue
-
-                illegal = False
-                for k in range(n):
-                    if k == i or k == j:
-                        continue
-
-                    pointTmp = points[k]
-                    isXContained = (
-                        pointTmp[0] >= pointA[0] and pointTmp[0] <= pointB[0]
-                    )
-                    isYContained = (
-                        pointTmp[1] <= pointA[1] and pointTmp[1] >= pointB[1]
-                    )
-                    if isXContained and isYContained:
-                        illegal = True
-                        break
-                if not illegal:
-                    ans += 1
+                    x_ma = min(x_ma, points[j][0])
+                    y_mi = max(y_mi, points[j][1])
+        
         return ans
