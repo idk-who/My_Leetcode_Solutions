@@ -1,6 +1,6 @@
 class Solution:
     def minAllOneMultiple(self, k: int) -> int:
-        if k % 2 == 0:
+        if k % 2 == 0 or k % 5 == 0:
             return -1
         n = 0
 
