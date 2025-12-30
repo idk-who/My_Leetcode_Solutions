@@ -1,57 +1,58 @@
 class Solution:
     def numMagicSquaresInside(self, grid: List[List[int]]) -> int:
-        n, m = len(grid), len(grid[0])
-
-        if n < 3 or m < 3: return 0
-
-        desired_freq = [0]+[1]*9
-
-        def is_magic(i, j):
-            freq = [0]*10
-            d1_sum = 0
-            d2_sum = 0
-            row_sum = [0]*3
-            col_sum = [0]*3
-
-            for k in range(i, i+3):
-                for l in range(j, j+3):
-                    row_sum[k-i] += grid[k][l]
-                    col_sum[l-j] += grid[k][l]
-                    if k-i == l-j:
-                        d1_sum += grid[k][l]
-                    if (k-i + l-j) == 2:
-                        d2_sum += grid[k][l]
-                    if not (0 <= grid[k][l] <= 9):
-                        return False
-                    freq[grid[k][l]] += 1
-            
-            if freq != desired_freq:
-                return False
-            if d1_sum != d2_sum:
-                return False
-            for ele in row_sum:
-                if d1_sum != ele:
-                    return False
-            for ele in col_sum:
-                if d1_sum != ele:    
-                    return False
-            
-            return True
-
-
         ans = 0
-
-        for i in range(n-2):
-            for j in range(n-2):
-                if is_magic(i, j):
+        m = len(grid)
+        n = len(grid[0])
+        for row in range(m - 2):
+            for col in range(n - 2):
+                if self._isMagicSquare(grid, row, col):
                     ans += 1
-                
-
-
-        
         return ans
-                        
 
-                
-                
-                
+    def _isMagicSquare(self, grid, row, col):
+        seen = [False] * 10
+        for i in range(3):
+            for j in range(3):
+                num = grid[row + i][col + j]
+                if num < 1 or num > 9:
+                    return False
+                if seen[num]:
+                    return False
+                seen[num] = True
+
+        # Check if diagonal sums are the same
+        diagonal1 = (
+            grid[row][col] + grid[row + 1][col + 1] + grid[row + 2][col + 2]
+        )
+        diagonal2 = (
+            grid[row + 2][col] + grid[row + 1][col + 1] + grid[row][col + 2]
+        )
+
+        if diagonal1 != diagonal2:
+            return False
+
+        # Check if all row sums are the same as the diagonal sums
+        row1 = grid[row][col] + grid[row][col + 1] + grid[row][col + 2]
+        row2 = (
+            grid[row + 1][col] + grid[row + 1][col + 1] + grid[row + 1][col + 2]
+        )
+        row3 = (
+            grid[row + 2][col] + grid[row + 2][col + 1] + grid[row + 2][col + 2]
+        )
+
+        if not (row1 == diagonal1 and row2 == diagonal1 and row3 == diagonal1):
+            return False
+
+        # Check if all column sums are the same as the diagonal sums
+        col1 = grid[row][col] + grid[row + 1][col] + grid[row + 2][col]
+        col2 = (
+            grid[row][col + 1] + grid[row + 1][col + 1] + grid[row + 2][col + 1]
+        )
+        col3 = (
+            grid[row][col + 2] + grid[row + 1][col + 2] + grid[row + 2][col + 2]
+        )
+
+        if not (col1 == diagonal1 and col2 == diagonal1 and col3 == diagonal1):
+            return False
+
+        return True
