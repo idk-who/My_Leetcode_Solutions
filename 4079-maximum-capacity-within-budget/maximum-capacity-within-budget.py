@@ -17,15 +17,18 @@ class Solution:
         if ind >= 0:
             ans = cap_prefix[ind]
         
+        j = n-1
         for i in range(n):
             cst = cst_sorted[i]
             if cst >= budget:
                 break
             
             rem_budget = budget - cst
-            j = bisect_left(cst_sorted, rem_budget)-1
-            j = min(j, i-1)
-            if j >= 0:
-                ans = max(ans, cap_sorted[i] + cap_prefix[j])
+            while j >= 0 and cst_sorted[j] >= rem_budget:
+                j -= 1
+            j2 = min(j, i-1)
+            # print(j)
+            if j2 >= 0:
+                ans = max(ans, cap_sorted[i] + cap_prefix[j2])
         
         return ans 
