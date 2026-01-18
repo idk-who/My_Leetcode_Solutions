@@ -13,21 +13,24 @@ class Solution:
             cap_prefix.append(max(cap_prefix[i-1], cap_sorted[i]))
         
         ans = 0
-        ind = bisect_left(cst_sorted, budget)-1
-        if ind >= 0:
-            ans = cap_prefix[ind]
+        # ind = bisect_left(cst_sorted, budget)-1
+        # if ind >= 0:
+        #     ans = cap_prefix[ind]
         
         j = n-1
         for i in range(n):
             cst = cst_sorted[i]
             if cst >= budget:
                 break
-            
+            ans = max(
+                ans,
+                cap_prefix[i]
+            )
             rem_budget = budget - cst
             while j >= 0 and cst_sorted[j] >= rem_budget:
                 j -= 1
             j2 = min(j, i-1)
-            # print(j)
+
             if j2 >= 0:
                 ans = max(ans, cap_sorted[i] + cap_prefix[j2])
         
