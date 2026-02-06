@@ -1,56 +1,55 @@
 class Solution:
     def maxSumTrionic(self, nums: List[int]) -> int:
-        n = len(nums)
-        ans = float("-inf")
-        i = 0
+        ptr = 1
+        prev_su1_len = 0
+        ans = float('-inf')
+        while ptr < len(nums):
+            print(ptr)
+            ptr -= 1
+            p1_ = p1 = next_ptr = ptr
+            while p1+1 < len(nums) and nums[p1+1] > nums[p1]:
+                p1 += 1
+                next_ptr += 1
+            max_su1 = 0
+            if p1 > ptr:
+                max_su1 = su1 = nums[p1] + nums[p1-1]
+                p1 -= 2
+                while p1 >= p1_:
+                    su1 += nums[p1]
+                    max_su1 = max(
+                        max_su1, su1
+                    )
+                    p1 -= 1
 
-        while i < n:
-            j = i + 1
-            res = 0
+            su1_len = next_ptr - ptr
 
-            # first segment: increasing segment
-            while j < n and nums[j - 1] < nums[j]:
-                j += 1
-            p = j - 1
-
-            if p == i:  # 没有有效的increasing segment
-                i += 1
+            p2 = next_ptr
+            su2 = 0
+            while p2+1 < len(nums) and nums[p2+1] < nums[p2]:
+                su2 += nums[p2+1]
+                p2 += 1
+                next_ptr += 1
+            su2 -= nums[p2]
+            ptr = next_ptr + 1
+            
+            if ptr < len(nums) and nums[ptr] == nums[ptr-1]:
+                ptr += 1
                 continue
+            if ptr < len(nums):
+                p3 = ptr
+                max_su3 = su3 = nums[next_ptr] + nums[ptr]
+                while p3+1 < len(nums) and nums[p3+1] > nums[p3]:
+                    su3 += nums[p3+1]
+                    p3 += 1
+                    max_su3 = max(
+                        max_su3,
+                        su3
+                    )
 
-            # second segment: decreasing segment
-            res += nums[p] + nums[p - 1]
-            while j < n and nums[j - 1] > nums[j]:
-                res += nums[j]
-                j += 1
-            q = j - 1
-
-            if q == p or q == n - 1 or (j < n and nums[j] <= nums[q]):
-                i = q
-                continue
-
-            # third segment: increasing segment
-            res += nums[q + 1]
-
-            # find the maximum sum of the third segment
-            max_sum = 0
-            curr_sum = 0
-            k = q + 2
-            while k < n and nums[k] > nums[k - 1]:
-                curr_sum += nums[k]
-                max_sum = max(max_sum, curr_sum)
-                k += 1
-            res += max_sum
-
-            # find the maximum sum of the first segment
-            max_sum = 0
-            curr_sum = 0
-            for k in range(p - 2, i - 1, -1):
-                curr_sum += nums[k]
-                max_sum = max(max_sum, curr_sum)
-            res += max_sum
-
-            # update answer
-            ans = max(ans, res)
-            i = q
-
+            if su1_len > 0 and p3 >= ptr:
+                print(max_su1, su2, max_su3, ptr)
+                ans = max(
+                    ans,
+                    max_su1 + su2 + max_su3
+                )
         return ans
